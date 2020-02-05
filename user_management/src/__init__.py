@@ -1,6 +1,6 @@
-# user-management/config/__init__.py
+# user_management/src/__init__.py
 
-from const import Constant as constant
+from user_management.src.const import Constant as constant
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy

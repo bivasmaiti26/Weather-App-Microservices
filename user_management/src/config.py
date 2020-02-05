@@ -1,10 +1,11 @@
-# user-management/config/config.py
+# user_management/src/config.py
 
-from const import Constant as constant
+import os
+from user_management.src.const import Constant as constant
 
 class BaseConfig:
     """Base configuration."""
-    SECRET_KEY = constant.SECRET_KEY
+    SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious')
     DEBUG = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
