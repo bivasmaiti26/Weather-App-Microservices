@@ -3,6 +3,7 @@
 from user_management.src.const import Constant as constant
 
 from flask import Flask
+from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
 from sqlalchemy import create_engine
@@ -18,4 +19,6 @@ app_settings = constant.APP_SETTINGS
 
 app.config.from_object(app_settings)
 
+bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
+
