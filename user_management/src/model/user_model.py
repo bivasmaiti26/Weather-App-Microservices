@@ -1,6 +1,6 @@
 # user_management/src/model/user_model.py
 
-from user_management.src import db
+from user_management.src import app, db, bcrypt
 import datetime
 
 class User(db.Model):
@@ -15,6 +15,11 @@ class User(db.Model):
 
     def __init__(self, email, password, admin=False):
         self.email = email
-        self.password = password
+        self.password = bcrypt.generate_password_hash(
+            password, app.config.get('BCRYPT_LOG_ROUNDS')
+        ).decode()
         self.registered_on = datetime.datetime.now()
         self.admin = admin
+        
+    def __repr__(self):
+        return '<User %r>' % self.email
