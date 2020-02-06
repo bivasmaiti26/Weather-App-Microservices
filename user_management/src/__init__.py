@@ -2,7 +2,7 @@
 
 from user_management.src.const import Constant as constant
 
-from flask import Flask
+from flask import Flask, Blueprint
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
@@ -15,8 +15,8 @@ if not database_exists(db_engine.url):
     create_database(db_engine.url)
 
 app = Flask(__name__)
-app_settings = constant.APP_SETTINGS
 
+app_settings = constant.APP_SETTINGS
 app.config.from_object(app_settings)
 
 bcrypt = Bcrypt(app)
@@ -26,5 +26,5 @@ from user_management.src.model.user_model import User
 db.create_all()
 db.session.commit()
 
-from user_management.src.api.register_api import register_api_blueprint
-app.register_blueprint(register_api_blueprint)
+auth_blueprint = Blueprint('auth', __name__)
+app.register_blueprint(auth_blueprint)
