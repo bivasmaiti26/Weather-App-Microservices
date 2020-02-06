@@ -10,7 +10,7 @@ register_api_blueprint = Blueprint('auth', __name__, url_prefix='/auth')
 """
 User registration api
 """
-@register_api_blueprint.route('/register', method=('POST'))
+@register_api_blueprint.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
     
