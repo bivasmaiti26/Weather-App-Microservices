@@ -21,7 +21,9 @@ class TestRegisterAPIBlueprint(base.BaseTestCase):
     def test_register_new_user(self):
         """ Test for new user registration """
         with self.client:
-            response = self.register_user('test', 'test@gmail.com', 'test_password')
+            response = self.register_user('test', 
+                                          'test@gmail.com', 
+                                          'test_password')
             data = json.loads(response.data.decode())
             self.assertTrue(data['status'] == 'success')
             self.assertTrue(data['message'] == 'User successfully registered.')
