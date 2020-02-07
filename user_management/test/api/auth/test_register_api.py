@@ -3,27 +3,16 @@
 import unittest
 import json
 
-from user_management.test import base
+from user_management.test import base, helper
 
 class TestRegisterAPIBlueprint(base.BaseTestCase):
-    
-    def register_user(self, username, email, password):
-            return self.client.post(
-                '/auth/register',
-                data=json.dumps(dict(
-                    username=username,
-                    email=email,
-                    password=password
-                )),
-                content_type='application/json',
-            )
-                
+
     def test_register_new_user(self):
         """ Test for new user registration """
         with self.client:
-            response = self.register_user('test', 
-                                          'test@gmail.com', 
-                                          'test_password')
+            response = helper.Helper.user_registration_helper('test', 
+                                                              'test@gmail.com', 
+                                                              'test_password')
             data = json.loads(response.data.decode())
             self.assertTrue(data['status'] == 'success')
             self.assertTrue(data['message'] == 'User successfully registered.')

@@ -1,0 +1,17 @@
+# user_management/test/helper.py
+
+import json
+
+from user_management.src import app
+
+class Helper:
+    client = app.test_client()
+    
+    @staticmethod
+    def user_registration_helper(username, email, password):
+        return Helper.client.post('/auth/register',
+                                  data=json.dumps(dict(username=username,
+                                                       email=email,
+                                                       password=password)),
+                                  content_type='application/json')
+    

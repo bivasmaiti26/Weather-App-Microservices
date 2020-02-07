@@ -23,4 +23,7 @@ bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
 from user_management.src.api.auth.register_api import register_blueprint 
+from user_management.src.api.auth.login_api import login_blueprint 
+
 app.register_blueprint(register_blueprint)
+app.register_blueprint(login_blueprint)
