@@ -23,4 +23,21 @@ exports.getWeatherData = function() {
         }
     );    
     client.connect();
+
+    function WeatherServiceAPICall(url)
+    {
+        return axios({
+            method: "post",
+            url: url,
+            headers: {
+              "Access-Control-Allow-Origin": "*"
+            }
+          })
+          .then(response => {
+            console.log("Data added to kafka")
+          })
+          .catch(err => {
+            console.log(err);
+          });
+    }
 };
