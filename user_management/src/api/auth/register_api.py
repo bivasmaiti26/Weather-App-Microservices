@@ -1,11 +1,12 @@
 # user_management/scr/api/auth/register_api.py
 
 from flask.views import MethodView
-from flask import request, make_response, jsonify
+from flask import request, make_response, jsonify, Blueprint
 
-from user_management.src import db, auth_blueprint
+from user_management.src import db
 from user_management.src.model.user_model import User
 
+register_blueprint = Blueprint('register', __name__)
 
 class RegisterAPI(MethodView):
     """
@@ -56,7 +57,7 @@ class RegisterAPI(MethodView):
 register_view = RegisterAPI.as_view('register_api')
 
 # Route path for API endpoint
-auth_blueprint.add_url_rule(
+register_blueprint.add_url_rule(
     '/auth/register',
     view_func=register_view,
     methods=['POST']

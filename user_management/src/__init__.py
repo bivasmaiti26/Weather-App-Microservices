@@ -2,7 +2,7 @@
 
 from user_management.src.const import Constant as constant
 
-from flask import Flask, Blueprint
+from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
@@ -22,5 +22,5 @@ app.config.from_object(app_settings)
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
-auth_blueprint = Blueprint('auth', __name__)
-app.register_blueprint(auth_blueprint)
+from user_management.src.api.auth.register_api import register_blueprint 
+app.register_blueprint(register_blueprint)
