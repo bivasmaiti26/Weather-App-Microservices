@@ -9,7 +9,7 @@ class BaseTestCase(TestCase):
     """ Base test cases """
     
     def create_app(self):
-        app.config.from_object(Constant.APP_SETTINGS)
+        app.config.from_object(Constant.APP_SETTINGS_TEST)
         return app
     
     def setUp(self):
