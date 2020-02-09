@@ -19,7 +19,6 @@ class Helper:
     def user_login_helper(username, email, password):
         return Helper.client.post('/auth/login',
                                   data=json.dumps(dict(username=username,
-                                                       email=email,
                                                        password=password)),
                                   content_type='application/json')
                                   

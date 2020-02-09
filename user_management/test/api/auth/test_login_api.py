@@ -27,7 +27,6 @@ class TestLoginAPIBlueprint(BaseTestCase):
         
         # registered user login
         login_response = Helper.user_login_helper('test', 
-                                                  'test@test.com', 
                                                   'test')
         login_data = json.loads(login_response.data.decode())
         self.assertTrue(login_data['status'] == 'success')
