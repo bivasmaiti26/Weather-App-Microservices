@@ -3,7 +3,8 @@
 import unittest
 import json
 
-from user_management.test import base, helper
+from user_management.test import base 
+from user_management.test import helper
 
 class TestRegisterAPIBlueprint(base.BaseTestCase):
 
