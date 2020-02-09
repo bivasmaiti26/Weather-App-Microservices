@@ -13,7 +13,13 @@ class BaseConfig:
 
 class DevelopmentConfig(BaseConfig):
     """Development configuration."""
-    DEBUG = True
+    DEBUG = False
     BCRYPT_LOG_ROUNDS = 4
     SQLALCHEMY_DATABASE_URI = constant.DATABASE_BASE_URL + constant.DATABASE_NAME
+    
+class TestConfig(BaseConfig):
+    """Testing configuration."""
+    DEBUG = True
+    BCRYPT_LOG_ROUNDS = 4
+    SQLALCHEMY_DATABASE_URI = constant.DATABASE_BASE_URL + constant.DATABASE_NAME + '_test'
     
