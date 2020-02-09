@@ -22,6 +22,10 @@ app.config.from_object(app_settings)
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
+from user_management.src.model.user_model import User
+db.create_all()
+db.session.commit()
+
 from user_management.src.api.auth.register_api import register_blueprint 
 from user_management.src.api.auth.login_api import login_blueprint 
 from user_management.src.api.auth.user_details_api import user_details_blueprint 
