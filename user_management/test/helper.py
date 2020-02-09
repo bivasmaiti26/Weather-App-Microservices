@@ -22,3 +22,9 @@ class Helper:
                                                        email=email,
                                                        password=password)),
                                   content_type='application/json')
+                                  
+                                  
+    @staticmethod
+    def user_details_helper(token):
+        return Helper.client.get('/auth/user_details',
+                                 headers=dict( Authorization='Bearer ' + token))
