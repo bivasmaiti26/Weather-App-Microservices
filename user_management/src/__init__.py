@@ -33,3 +33,6 @@ from user_management.src.api.auth.user_details_api import user_details_blueprint
 app.register_blueprint(register_blueprint)
 app.register_blueprint(login_blueprint)
 app.register_blueprint(user_details_blueprint)
+
+if __name__ == '__main__':
+    app.run(debug=False)
