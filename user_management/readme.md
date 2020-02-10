@@ -16,4 +16,4 @@ Please install the dependencies and run the service as instructed below
 
 ### To run the Service
 Run the following command in the user_management folder:  
-python -m src.\_\_init\_\_ or python3 -m src.\_\_init\_\_ (if you have multiple versions of python installed).  
+python -m src.\_\_init\_\_ or python3 -m src.\_\_init\_\_ (If you have multiple versions of python installed, run it in python3 environment).  
