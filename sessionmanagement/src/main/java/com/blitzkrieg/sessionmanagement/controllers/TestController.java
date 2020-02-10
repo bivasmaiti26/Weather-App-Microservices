@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+@RestController("/")
 public class TestController {
     private final SessionRepository repository ;
     public TestController(SessionRepository repository) {
@@ -16,8 +16,10 @@ public class TestController {
     }
     @GetMapping("/getSessions/{username}")
     public List<Session> postMessage(@PathVariable("username") final String username) {
+
         return repository.findByUserName(username);
     }
+
 
 
 }
