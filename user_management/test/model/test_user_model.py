@@ -2,10 +2,10 @@
 
 import unittest
 
-from user_management.src import db
-from user_management.src.model.user_model import User
+from src import db
+from src.model.user_model import User
 
-from user_management.test.base import BaseTestCase
+from test.base import BaseTestCase
 
 class TestUserModel(BaseTestCase):
     

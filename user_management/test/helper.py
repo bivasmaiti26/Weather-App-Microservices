@@ -2,7 +2,7 @@
 
 import json
 
-from user_management.src import app
+from src import app
 
 class Helper:
     client = app.test_client()

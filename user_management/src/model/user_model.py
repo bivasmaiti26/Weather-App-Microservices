@@ -1,6 +1,6 @@
 # user_management/src/model/user_model.py
-
-from user_management.src import app, db, bcrypt, const
+import sys
+from src import app, db, bcrypt, const
 
 import jwt
 import datetime

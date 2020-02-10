@@ -1,7 +1,7 @@
 # user_management/src/config.py
 
 import os
-from user_management.src.const import Constant as constant
+from src.const import Constant as constant
 
 class BaseConfig:
     """Base configuration."""

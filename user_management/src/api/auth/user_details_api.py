@@ -3,7 +3,7 @@
 from flask.views import MethodView
 from flask import request, make_response, jsonify, Blueprint
 
-from user_management import *
+from src import *
 
 user_details_blueprint = Blueprint('user_details', __name__)
 
