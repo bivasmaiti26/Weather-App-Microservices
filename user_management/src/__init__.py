@@ -1,6 +1,5 @@
 # user_management/src/__init__.py
-
-from user_management.src.const import Constant as constant
+from src.const import Constant as constant
 
 from flask import Flask
 from flask_bcrypt import Bcrypt
@@ -21,14 +20,13 @@ app.config.from_object(app_settings)
 
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
-
-from user_management.src.model.user_model import User
 db.create_all()
 db.session.commit()
-
-from user_management.src.api.auth.register_api import register_blueprint 
-from user_management.src.api.auth.login_api import login_blueprint 
-from user_management.src.api.auth.user_details_api import user_details_blueprint 
+# import sys
+# sys.path.append('api/')
+from src.api.auth.register_api import register_blueprint
+from src.api.auth.login_api import login_blueprint
+from src.api.auth.user_details_api import user_details_blueprint
 
 app.register_blueprint(register_blueprint)
 app.register_blueprint(login_blueprint)

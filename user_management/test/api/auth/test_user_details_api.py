@@ -3,8 +3,8 @@
 import unittest
 import json
 
-import user_management.test.base.BaseTestCase as base
-import user_management.test.helper.Helper as helper
+import test.base.BaseTestCase as base
+import test.helper.Helper as helper
 
 class TestUserDetailsAPIBlueprint(base):
     

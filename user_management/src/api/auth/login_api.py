@@ -3,8 +3,8 @@
 from flask.views import MethodView
 from flask import request, make_response, jsonify, Blueprint
 
-from user_management.src import bcrypt
-from user_management.src.model.user_model import User
+from src import bcrypt
+from src.model.user_model import User
 
 login_blueprint = Blueprint('auth', __name__)
 

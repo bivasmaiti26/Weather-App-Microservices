@@ -3,8 +3,8 @@
 from flask.views import MethodView
 from flask import request, make_response, jsonify, Blueprint
 
-from user_management.src import db
-from user_management.src.model.user_model import User
+from src import db
+from src.model.user_model import User
 
 register_blueprint = Blueprint('register', __name__)
 

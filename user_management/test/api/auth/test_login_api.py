@@ -3,8 +3,8 @@
 import unittest
 import json
 
-from user_management.test.base import BaseTestCase
-from user_management.test.helper import Helper
+from test.base import BaseTestCase
+from test.helper import Helper
 
 
 class TestLoginAPIBlueprint(BaseTestCase):

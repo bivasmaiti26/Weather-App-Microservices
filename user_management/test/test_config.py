@@ -5,7 +5,7 @@ import unittest
 from flask import current_app
 from flask_testing import TestCase
 
-from user_management.src import app, const
+from src import app, const
 
 class TestDevelopmentConfig(TestCase):
     def create_app(self):

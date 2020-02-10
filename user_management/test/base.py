@@ -2,8 +2,8 @@
 
 from flask_testing import TestCase
 
-from user_management.src.const import Constant
-from user_management.src import app, db
+from src.const import Constant
+from src import app, db
 
 class BaseTestCase(TestCase):
     """ Base test cases """
