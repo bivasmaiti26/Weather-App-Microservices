@@ -20,6 +20,7 @@ app.config.from_object(app_settings)
 
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
+from src.model.user_model import User
 db.create_all()
 db.session.commit()
 # import sys
