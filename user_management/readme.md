@@ -9,6 +9,8 @@ Please install the dependencies and run the service as instructed below
   - pip install Flask-SQLAlchemy
   - pip install SQLAlchemy-Utils
   - pip install PyJWT
+  - pip install psycopg2
+  
 3. Install Postgres with the following credentials: userid: postgres, password: 1234
 4. Create 24 byte SECRET_KEY and add it as an environment variable. Same key should be present in the system running the session management module.
 
