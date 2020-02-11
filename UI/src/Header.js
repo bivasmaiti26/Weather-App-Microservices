@@ -100,19 +100,15 @@ class Header extends Component {
 
       return axios({
           method: 'post',
-          url: 'http://127.0.0.1:3000/login',
+          url: 'http://127.0.0.1:8000/login',
           headers: {
             'Access-Control-Allow-Origin': '*'
           },
           data: userCreds
         })
         .then((response) => {
-          if (response['data'] === "Incorrect Username") {
-            console.log("wrong username")
-            ToastsStore.error("Incorrect Credentials. Please Enter Valid Email and Password");
-          }
-
-          if (response['data'] === "Login Success") {
+          
+          if (response.data.message === 'Login successful.') {
             localStorage.setItem("isLogin", "true");
             localStorage.setItem("currentUser",this.state.username);
             ToastsStore.success("Successful Log In");
@@ -124,13 +120,17 @@ class Header extends Component {
             })
           }
 
-          if (response['data'] === "Incorrect Password") {
-            console.log("wrong password")
+          if (response.data.message === 'User does not exist.') {
+            console.log("User does not exist.");
+            ToastsStore.error("User does not exist.");
+          }
+
+          if (response.data.message === 'Incorrect username or password.') {
+            console.log("Incorrect Credentials.");
             ToastsStore.error("Incorrect Credentials. Please Enter Valid Email and Password");
           }
         }).catch(err => {
-          alert(err)
-          console.log(err)
+          console.log(err);
         })
     }
 
@@ -144,7 +144,7 @@ class Header extends Component {
 
       return axios({
           method: 'post',
-          url: 'http://localhost:3000/register',
+          url: 'http://localhost:8000/register',
           headers: {
             'Access-Control-Allow-Origin': '*'
           },
@@ -230,11 +230,12 @@ class Header extends Component {
                       <Form.Group controlId="Header">
                           <h1 style={{textAlign:"center"}}>Login</h1>
                       </Form.Group>
-                      <Form.Group controlId="formBasicEmail">
-                        <Form.Label style={{fontSize:18}}>Username</Form.Label>
-                        <Form.Control placeholder="Enter Username"  value={this.state.username} onChange={this.handleEmailChange} />
-                        </Form.Group>
-
+                      <Form.Row>
+                            <Form.Group as={Col} controlId="formGridUsername">
+                            <Form.Label style={{fontSize:18}}>Username</Form.Label>
+                            <Form.Control placeholder="Username" value={this.state.username} name="username" onChange={this.onChange} />
+                            </Form.Group>
+                          </Form.Row>
                       <Form.Group controlId="formBasicPassword">
                         <Form.Label style={{fontSize:18}}>Password</Form.Label>
                         <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}/>
@@ -247,7 +248,7 @@ class Header extends Component {
 
 
                       &nbsp;&nbsp;&nbsp;
-                      <Button onClick={this.changeState2} show={this.state.isLogin}>Sign Up/ Apply</Button>
+                      <Button onClick={this.changeState2} show={this.state.isLogin}>Sign Up</Button>
                   <Modal style={{zIndex:50000}} show={this.state.showModal2} onHide={this.changeState2}>
                     <Form style = {{padding:'20px'}}>
                           <Form.Group controlId="Header">
