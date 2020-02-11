@@ -126,7 +126,7 @@ exports.register = function(req, res) {
           })
           .then(response => {
             console.log(response.data);
-            util.addNewSession({
+            utils.addNewSession({
                 requestTime:new Date(),
                 userName: username,
                 requestName: "Register",
