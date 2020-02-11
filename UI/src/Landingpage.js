@@ -70,7 +70,7 @@ export default class LandingPage extends Component {
                     </li>
                   </ul>
                   <p className="text-muted small mb-4 mb-lg-0">
-                    © Credit Service 2019. All Rights Reserved.
+                    © Weather App 2020. All Rights Reserved.
                   </p>
                 </div>
                 <div className="col-lg-6 h-100 text-center text-lg-right my-auto">
