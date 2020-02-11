@@ -43,11 +43,7 @@ class Dashboard extends Component {
             <div className="d-flex" id="wrapper">
             <Sidebar/>
             <div id="page-content-wrapper">
-            <Card style={{height:150, width:300, marginLeft:400, marginTop: 100}}>
-                                <li className="list-group-item">Withdraw Amount:    {this.state.withdraw}</li>
-                                <li className="list-group-item">Remaining Balance:  {this.state.balance}</li>
-                                <li className="list-group-item">Total Credit limit: {this.state.credilimit}</li>
-            </Card>
+            
             </div>
 
             </div>        
