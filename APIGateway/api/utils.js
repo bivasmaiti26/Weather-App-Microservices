@@ -49,9 +49,7 @@ function RegisterAPICall(url,sessionToSave)
             headers: {
               "Access-Control-Allow-Origin": "*"
             },
-            data: {
-                sessionToSave
-            }
+            data: sessionToSave
           })
           .then(response => {
             console.log(response.data);
