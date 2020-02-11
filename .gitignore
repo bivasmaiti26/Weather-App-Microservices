@@ -1,1 +1,3 @@
 *.pyc
+UI/node_modules/*
+APIGateway/node_modules/*
