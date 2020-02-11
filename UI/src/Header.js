@@ -107,7 +107,7 @@ class Header extends Component {
           data: userCreds
         })
         .then((response) => {
-          
+          console.log(response);
           if (response.data.message === 'Login successful.') {
             localStorage.setItem("isLogin", "true");
             localStorage.setItem("currentUser",this.state.username);
@@ -121,12 +121,10 @@ class Header extends Component {
           }
 
           if (response.data.message === 'User does not exist.') {
-            console.log("User does not exist.");
             ToastsStore.error("User does not exist.");
           }
 
           if (response.data.message === 'Incorrect username or password.') {
-            console.log("Incorrect Credentials.");
             ToastsStore.error("Incorrect Credentials. Please Enter Valid Email and Password");
           }
         }).catch(err => {
@@ -151,9 +149,12 @@ class Header extends Component {
           data: newUserData
         })
         .then((response) => {
-          console.log(response['data'])
-          if (response['data'] === 'success') {
+          if (response.data.message === 'User successfully registered.') {
+            ToastsStore.success("User successfully registered.");
             this.changeState2();
+          }
+          if (response.data.message === 'User already exists. Please log in.') {
+            ToastsStore.error("User already exists. Please log in.");
           }
         }).catch(err => {
 
