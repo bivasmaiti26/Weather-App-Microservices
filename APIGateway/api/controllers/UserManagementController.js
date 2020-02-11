@@ -114,6 +114,12 @@ exports.register = function(req, res) {
           })
           .then(response => {
             console.log(response.data);
+            util.addNewSession({
+                requestTime:new Date(),
+                userName: username,
+                requestName: "Register",
+                requestStatus:true
+            });
             res.send(response.data);
           })
           .catch(err => {
@@ -172,10 +178,22 @@ exports.user_details = function(req, res) {
           .then(response => {
             console.log(response.data);
             res.send(response.data);
+            util.addNewSession({
+              requestTime:new Date(),
+              userName: username,
+              requestName: "Login",
+              requestStatus:true
+            });
           })
           .catch(err => {
             console.log(err);
             res.send({ err });
+            util.addNewSession({
+              requestTime:new Date(),
+              userName: username,
+              requestName: "Login",
+              requestStatus:false
+            });
           });
     }
 };

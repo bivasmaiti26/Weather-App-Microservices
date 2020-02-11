@@ -1,31 +1,17 @@
-'use strict';
-var jwt = require('jsonwebtoken');
 const axios = require('axios');
-module.exports = {
-    get_auth_token: function (req) {
-        auth_header = req.header('Authorization');
-        if (auth_header && auth_header.split(' ')[0] === 'Bearer') {
-            return auth_header.split(' ')[1];
-        } else {
-            return null;
-        }
-    }
-};
-
-
-module.exports = {
-    addNewSession: function(sessionToSave) {
+const util = require('../utils');
+exports.validateToken = function(req, res) {
     var zookeeper = require('node-zookeeper-client');
-    var host,port,url;
+    var host,port;
     var client = zookeeper.createClient('localhost:2181');
     var path = '/session_management';
-    console.log(sessionToSave);
+    var url;
     client.getData(
         path,
         function (event) {
             console.log('Got event: %s.', event);
         },
-        function (error, data) {
+        function (error, data, stat) {
             if (error) {
                 console.log(error.stack);
                 return;
@@ -33,16 +19,15 @@ module.exports = {
             zookeeper_data = JSON.parse(data.toString('utf8'))
             host = zookeeper_data["host"];
             port = zookeeper_data["port"];
-            url = "http://" + host + ":" + port.toString() + "/sessions";
-            return RegisterAPICall(url,sessionToSave);
+            url = "http://" + host + ":" + port.toString() + '/tokens/validate';
+            validateAPICall(url, req.body.token, res);
         }
     );    
     
     client.connect();
 
-function RegisterAPICall(url,sessionToSave)
-    {   
-        
+    function validateAPICall(url, tokenToCheck, res)
+    {
         return axios({
             method: "post",
             url: url,
@@ -50,19 +35,23 @@ function RegisterAPICall(url,sessionToSave)
               "Access-Control-Allow-Origin": "*"
             },
             data: {
-                sessionToSave
-            }
+               tokenToCheck
+            },
+            transformRequest: [(data) => {
+                return data.tokenToCheck;
+            }]
           })
           .then(response => {
-            console.log(response.data);
-            return response.data;
-            
+            res.send(response.data);
+            // util.addNewSession({
+            //     requestTime:new Date(),
+            //     userName: "user1",
+            //     requestName: "some request",
+            //     requestStatus:true
+            // });
           })
           .catch(err => {
-            console.log(err);
-            return err.data;
+            res.send(err.response.status).send(err.response.body);
           });
     }
-}
-
-}
+};
