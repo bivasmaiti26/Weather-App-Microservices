@@ -61,7 +61,7 @@ exports.login = function(req, res) {
           })
           .catch(err => {
             console.log(err);
-            res.send({ err });
+            res.send(err.response.data);
             utils.addNewSession({
               requestTime:new Date(),
               userName: username,
