@@ -1,5 +1,5 @@
 const axios = require('axios');
-//var utils = require('../utils');
+var utils = require('../utils');
 
 exports.login = function(req, res) {
     var zookeeper = require('node-zookeeper-client');
@@ -52,10 +52,22 @@ exports.login = function(req, res) {
           .then(response => {
             console.log(response.data);
             res.send(response.data);
+            utils.addNewSession({
+              requestTime:new Date(),
+              userName: username,
+              requestName: "Login",
+              requestStatus:true
+            });
           })
           .catch(err => {
             console.log(err);
             res.send({ err });
+            utils.addNewSession({
+              requestTime:new Date(),
+              userName: username,
+              requestName: "Login",
+              requestStatus:false
+            });
           });
     }
 };
@@ -178,22 +190,10 @@ exports.user_details = function(req, res) {
           .then(response => {
             console.log(response.data);
             res.send(response.data);
-            util.addNewSession({
-              requestTime:new Date(),
-              userName: username,
-              requestName: "Login",
-              requestStatus:true
-            });
           })
           .catch(err => {
             console.log(err);
             res.send({ err });
-            util.addNewSession({
-              requestTime:new Date(),
-              userName: username,
-              requestName: "Login",
-              requestStatus:false
-            });
           });
     }
 };
