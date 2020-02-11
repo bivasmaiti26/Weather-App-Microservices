@@ -32,10 +32,6 @@ class Dashboard extends Component {
   }
 
 
-  componentDidMount() {
-    this.getData();
-  }
-
   render() {
       return(
           <>
