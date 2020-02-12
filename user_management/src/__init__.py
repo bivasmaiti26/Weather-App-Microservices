@@ -44,10 +44,12 @@ db.session.commit()
 from src.api.auth.register_api import register_blueprint
 from src.api.auth.login_api import login_blueprint
 from src.api.auth.user_details_api import user_details_blueprint
+from src.api.auth.logout_api import logout_blueprint
 
 app.register_blueprint(register_blueprint)
 app.register_blueprint(login_blueprint)
 app.register_blueprint(user_details_blueprint)
+app.register_blueprint(logout_blueprint)
 
 if __name__ == '__main__':
     registerUserManagementService(host = constant.HOST, port = constant.PORT)
