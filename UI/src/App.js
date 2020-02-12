@@ -7,6 +7,7 @@ import Dashboard from "./Dashboard";
 
 import "./App.css";
 import UserProfile from "./UserProfile"
+import Search from "./Search"
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
           <Route exact path="/Home" component={Home} />
           <Route exact path="/Dashboard" component={Dashboard} />
           <Route exact path="/UserProfile" component={UserProfile} />
+          <Route exact path="/Search" component={Search} />
           {/*<Footer />*/}
         </Router>
       </>
