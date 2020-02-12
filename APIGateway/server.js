@@ -3,6 +3,9 @@ var express = require('express'),
   port = process.env.PORT || 8000,
   bodyParser = require('body-parser');
 
+var cors = require('cors')
+
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 const consumer = require('./api/listeners/Consumer');
