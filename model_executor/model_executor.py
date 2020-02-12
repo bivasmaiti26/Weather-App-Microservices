@@ -54,9 +54,8 @@ def execute():
         mongo.db.city.insert_one({"city": city, "url":url})
         
         weather_data = requests.get(url).content
-        data = json.loads(weather_data)
-
-        processed = rpyc.async_(post_processor.process)(data)
+        
+        processed = rpyc.async_(post_processor.process)(weather_data)
 
         while not processed.ready:
             continue
