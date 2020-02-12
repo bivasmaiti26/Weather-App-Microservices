@@ -1,5 +1,7 @@
-const socket = require('./../websockets/socket')
-const config = require('./../config');
+module.exports = {
+runComsumer: function() {
+  WebSocketServer = require('ws').Server;
+  wss = new WebSocketServer({ port: 9090 });
   try{
     var kafka = require('kafka-node'),
     Consumer = kafka.Consumer,
@@ -7,18 +9,21 @@ const config = require('./../config');
     consumer = new Consumer(
         client,
         [
-            { topic: config.inbound_topic, partition: 0 }
+            { topic: 'T13', partition: 0 }
         ],
         {
             autoCommit: false
         }
     );
+
     consumer.on('message', function (message) {
-      socket.wss.clients.forEach(function each(client) {
+      console.log(message.value);
+      wss.clients.forEach(function each(client) {
         client.send(message.value);
     });
   });
 }
 catch(e){
   console.log(e);
+}}
 }
