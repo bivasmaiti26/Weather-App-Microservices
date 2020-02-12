@@ -37,7 +37,6 @@ def execute():
         model_url = city_url["url"]
         weather_data = requests.get(model_url).content
         processed = rpyc.async_(post_processor.process)(weather_data)
-        urls = rpyc.async_(data_retriever.get_url)("city")
 
         while not processed.ready:
             continue
@@ -50,22 +49,11 @@ def execute():
             data = pickle.loads(msg.value)
         consumer.close()
     else:
-        urls = rpyc.async_(data_retriever.get_url)("city")
-
-        while not urls.ready:
-            continue
+        url = data_retriever.get_url(city)
         
-        topic_name = 'T2'
-        consumer = KafkaConsumer(topic_name, auto_offset_reset='earliest', bootstrap_servers=['localhost:9092'],
-                                 api_version=(0, 10), consumer_timeout_ms=1000)
-        topic_url = ''
-        for msg in consumer:
-            topic_url = pickle.loads(msg.value)
-        consumer.close()
+        mongo.db.city.insert_one({"city": city, "url":url})
         
-        mongo.db.city.insert_one({"city": city, "url":topic_url})
-        
-        weather_data = requests.get(topic_url).content
+        weather_data = requests.get(url).content
         data = json.loads(weather_data)
 
         processed = rpyc.async_(post_processor.process)(data)
