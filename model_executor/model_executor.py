@@ -32,7 +32,7 @@ def registerModelExecutorService(host, port):
         data = json.dumps({'host': host, 'port': port}).encode('utf-8')
     
         zk.create(path, value = data, ephemeral = True, makepath = True)
-        print('user_management service is running on ' + path + ':' + str(port))
+        print('model_executor service is running on ' + path + ':' + str(port))
     except NodeExistsError:
         print('Node already exists in zookeeper')
     except ConnectionLossException:
