@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Card from "@material-ui/core/Card";
 import Sidebar from './Sidebar'
+import Search from './Search'
 
 class Dashboard extends Component {
   constructor(props) {
@@ -41,7 +42,7 @@ class Dashboard extends Component {
             <div id="page-content-wrapper">
             
             </div>
-
+            <Search/>
             </div>        
  </>
       );
