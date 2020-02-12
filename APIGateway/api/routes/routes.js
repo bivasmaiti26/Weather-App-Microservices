@@ -5,7 +5,7 @@ module.exports = function(app) {
   var SessionManagementControllerObject = require('../controllers/SessionManagementController')
   // todoList Routes
   app.route('/getWeatherData')
-    .get(WeatherControllerObject.getWeatherData);
+    .post(WeatherControllerObject.getWeatherData);
     
   app.route('/login')
     .post(UserManagementControllerObject.login);
