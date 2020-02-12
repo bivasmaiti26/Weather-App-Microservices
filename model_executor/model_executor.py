@@ -41,13 +41,6 @@ def execute():
         while not processed.ready:
             continue
         
-        topic_name = 'T3'
-        consumer = KafkaConsumer(topic_name, auto_offset_reset='earliest', bootstrap_servers=['localhost:9092'],
-                                 api_version=(0, 10), consumer_timeout_ms=1000)
-        data = ''
-        for msg in consumer:
-            data = pickle.loads(msg.value)
-        consumer.close()
     else:
         url = data_retriever.get_url(city)
         
@@ -60,13 +53,7 @@ def execute():
         while not processed.ready:
             continue
 
-        topic_name = 'T3'
-        consumer = KafkaConsumer(topic_name, auto_offset_reset='earliest', bootstrap_servers=['localhost:9092'],
-                                 api_version=(0, 10), consumer_timeout_ms=1000)
-        data = ''
-        for msg in consumer:
-            data = pickle.loads(msg.value)
-        consumer.close()
+        
 
     return ""
 
