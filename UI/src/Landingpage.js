@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import ls from "local-storage";
-import ReactTypingEffect from 'react-typing-effect';
 import  "./App"
 
 
