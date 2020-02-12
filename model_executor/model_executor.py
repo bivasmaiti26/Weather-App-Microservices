@@ -1,11 +1,10 @@
 from flask import Flask, request
 import requests
 from flask_pymongo import PyMongo
-from kafka import KafkaConsumer
-import pickle
-import json
-
+from kazoo.client import KazooClient
+from kazoo.exceptions import NodeExistsError, ConnectionLossException
 import rpyc
+import json
 
 app = Flask(__name__)
 app.config['MONGO_DBNAME'] = 'weather_db'
@@ -25,12 +24,24 @@ rpyc.core.protocol.DEFAULT_CONFIG['sync_request_timeout'] = None
 data_retriever = rpyc.connect(data_retriever_url, data_retriever_port,
                               config=rpyc.core.protocol.DEFAULT_CONFIG).root
 
-
+def registerUserManagementService(host, port):
+    try:
+        zk = KazooClient(hosts = 'localhost', read_only = True)
+        zk.start()
+        path = '/WeatherData'
+        data = json.dumps({'host': host, 'port': port}).encode('utf-8')
+    
+        zk.create(path, value = data, ephemeral = True, makepath = True)
+        print('user_management service is running on ' + path + ':' + str(port))
+    except NodeExistsError:
+        print('Node already exists in zookeeper')
+    except ConnectionLossException:
+        zk.stop()
+        
 @app.route('/model-executor', methods=['GET'])
 def execute():
     params = request.args.to_dict()
     city = params['city']
-
     city_url = mongo.db.city.find_one({'city': city})
 
     if city_url:
@@ -43,20 +54,14 @@ def execute():
         
     else:
         url = data_retriever.get_url(city)
-        
         mongo.db.city.insert_one({"city": city, "url":url})
-        
         weather_data = requests.get(url).content
-        
         processed = rpyc.async_(post_processor.process)(weather_data)
 
         while not processed.ready:
             continue
-
-        
-
     return ""
 
-
 if __name__ == '__main__':
-    app.run()
+    registerUserManagementService(host = '127.12.27.1', port = 9001)
+    app.run(host = '127.12.27.1', port = 9001, debug = False)
