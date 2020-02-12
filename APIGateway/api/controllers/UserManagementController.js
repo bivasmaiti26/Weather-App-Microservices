@@ -1,7 +1,9 @@
 const axios = require('axios');
 var utils = require('../utils');
+var cors = require('cors')
 
 exports.login = function(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     var zookeeper = require('node-zookeeper-client');
     var host,port;
     var client = zookeeper.createClient('localhost:2181');
@@ -73,6 +75,7 @@ exports.login = function(req, res) {
 };
 
 exports.register = function(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     var zookeeper = require('node-zookeeper-client');
     var host,port;
     var client = zookeeper.createClient('localhost:2181');
