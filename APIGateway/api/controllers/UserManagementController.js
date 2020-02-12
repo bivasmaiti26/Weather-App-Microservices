@@ -61,7 +61,7 @@ exports.login = function(req, res) {
           })
           .catch(err => {
             console.log(err);
-            res.send({ err });
+            res.send(err.response.data);
             utils.addNewSession({
               requestTime:new Date(),
               userName: username,
@@ -126,7 +126,7 @@ exports.register = function(req, res) {
           })
           .then(response => {
             console.log(response.data);
-            util.addNewSession({
+            utils.addNewSession({
                 requestTime:new Date(),
                 userName: username,
                 requestName: "Register",

@@ -19,16 +19,24 @@ class LoginAPI(MethodView):
         try:
             user = User.query.filter_by(username=data.get('username')).first()
             
-            if user and bcrypt.check_password_hash(user.password, 
+            if user:
+                
+                if bcrypt.check_password_hash(user.password, 
                                                    data.get('password')):
-                token = user.generate_token()
-                if token:
+                    token = user.generate_token()
+                    if token:
+                        response = {
+                            'status': 'success',
+                            'message': 'Login successful.',
+                            'auth_token': token.decode()
+                        }
+                        return make_response(jsonify(response)), 200
+                else:
                     response = {
-                        'status': 'success',
-                        'message': 'Login successful.',
-                        'auth_token': token.decode()
-                    }
-                    return make_response(jsonify(response)), 200
+                    'status': 'fail',
+                    'message': 'Incorrect username or password.'
+                }
+                return make_response(jsonify(response)), 401
             else:
                 response = {
                     'status': 'fail',
