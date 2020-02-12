@@ -1,7 +1,6 @@
 import rpyc
 from rpyc.utils.server import ThreadedServer
 from kafka import KafkaProducer
-import pickle
 import json
 
 
