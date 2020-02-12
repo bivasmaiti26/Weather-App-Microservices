@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-exports.getWeatherData = function() {
+exports.getWeatherData = function(req,res) {
     var zookeeper = require('node-zookeeper-client');
     var host,port;
     var client = zookeeper.createClient('localhost:2181');
@@ -20,18 +20,20 @@ exports.getWeatherData = function() {
             host = zookeeper_data["host"];
             port = zookeeper_data["port"];
             url = "http://"+host+":"+port.toString()+'/getWeatherData';
+            WeatherServiceAPICall(url,req)
         }
     );    
     client.connect();
 
-    function WeatherServiceAPICall(url)
+    function WeatherServiceAPICall(url,req)
     {
         return axios({
             method: "post",
             url: url,
             headers: {
               "Access-Control-Allow-Origin": "*"
-            }
+            },
+            data:req
           })
           .then(response => {
             console.log("Data added to kafka")
