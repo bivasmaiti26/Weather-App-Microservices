@@ -6,7 +6,7 @@ from flask import request, make_response, jsonify, Blueprint
 from src import bcrypt
 from src.model.user_model import User
 
-login_blueprint = Blueprint('auth', __name__)
+login_blueprint = Blueprint('login', __name__)
 
 class LoginAPI(MethodView):
     """
