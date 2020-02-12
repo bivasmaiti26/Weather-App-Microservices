@@ -1,5 +1,6 @@
+
 module.exports = {
-runComsumer: function() {
+runConsumer: function() {
   WebSocketServer = require('ws').Server;
   wss = new WebSocketServer({ port: 9090 });
   try{
@@ -9,18 +10,17 @@ runComsumer: function() {
     consumer = new Consumer(
         client,
         [
-            { topic: 'T13', partition: 0 }
+            { topic: 'T3', partition: 0 }
         ],
         {
             autoCommit: false
         }
     );
-
     consumer.on('message', function (message) {
-      console.log(message.value);
-      wss.clients.forEach(function each(client) {
-        client.send(message.value);
-    });
+        wss.clients.forEach(function each(client) {
+            client.send(message.value);
+         });
+      
   });
 }
 catch(e){

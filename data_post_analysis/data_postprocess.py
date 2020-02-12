@@ -1,12 +1,12 @@
 import rpyc
 from rpyc.utils.server import ThreadedServer
 from kafka import KafkaProducer
-import pickle
 import json
 
 
 class PostProcessService(rpyc.Service):
     def publish_message(self,producer, topic, value):
+       # print("Trying to publish",value, "to topic", topic)
         try:
             producer.send(topic, value=value)
             producer.flush()
@@ -14,7 +14,7 @@ class PostProcessService(rpyc.Service):
             return True
         except Exception as ex:
             print('Exception in publishing message')
-            print(str(ex))
+            print(ex)
             return False
 
     def connect_kafka_producer(self):
@@ -41,10 +41,9 @@ class PostProcessService(rpyc.Service):
             if entry['number'] == 25:
                 break
             result.append(entry)
-
         if len(result) > 0:
             kafka_producer = self.connect_kafka_producer()
-            serialize_weather_data = pickle.dumps(result)
+            serialize_weather_data = json.dumps(result).encode('utf-8')
             status = self.publish_message(kafka_producer, 'T3', serialize_weather_data)
             if kafka_producer is not None:
                 kafka_producer.close()

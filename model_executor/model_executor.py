@@ -1,11 +1,10 @@
 from flask import Flask, request
 import requests
 from flask_pymongo import PyMongo
-from kafka import KafkaConsumer
-import pickle
-import json
-
+from kazoo.client import KazooClient
+from kazoo.exceptions import NodeExistsError, ConnectionLossException
 import rpyc
+import json
 
 app = Flask(__name__)
 app.config['MONGO_DBNAME'] = 'weather_db'
@@ -25,12 +24,24 @@ rpyc.core.protocol.DEFAULT_CONFIG['sync_request_timeout'] = None
 data_retriever = rpyc.connect(data_retriever_url, data_retriever_port,
                               config=rpyc.core.protocol.DEFAULT_CONFIG).root
 
-
+def registerModelExecutorService(host, port):
+    try:
+        zk = KazooClient(hosts = 'localhost', read_only = True)
+        zk.start()
+        path = '/WeatherData'
+        data = json.dumps({'host': host, 'port': port}).encode('utf-8')
+    
+        zk.create(path, value = data, ephemeral = True, makepath = True)
+        print('model_executor service is running on ' + path + ':' + str(port))
+    except NodeExistsError:
+        print('Node already exists in zookeeper')
+    except ConnectionLossException:
+        zk.stop()
+        
 @app.route('/model-executor', methods=['GET'])
 def execute():
     params = request.args.to_dict()
     city = params['city']
-
     city_url = mongo.db.city.find_one({'city': city})
 
     if city_url:
@@ -41,35 +52,16 @@ def execute():
         while not processed.ready:
             continue
         
-        topic_name = 'T3'
-        consumer = KafkaConsumer(topic_name, auto_offset_reset='earliest', bootstrap_servers=['localhost:9092'],
-                                 api_version=(0, 10), consumer_timeout_ms=1000)
-        data = ''
-        for msg in consumer:
-            data = pickle.loads(msg.value)
-        consumer.close()
     else:
         url = data_retriever.get_url(city)
-        
         mongo.db.city.insert_one({"city": city, "url":url})
-        
         weather_data = requests.get(url).content
-        
         processed = rpyc.async_(post_processor.process)(weather_data)
 
         while not processed.ready:
             continue
-
-        topic_name = 'T3'
-        consumer = KafkaConsumer(topic_name, auto_offset_reset='earliest', bootstrap_servers=['localhost:9092'],
-                                 api_version=(0, 10), consumer_timeout_ms=1000)
-        data = ''
-        for msg in consumer:
-            data = pickle.loads(msg.value)
-        consumer.close()
-
     return ""
 
-
 if __name__ == '__main__':
-    app.run()
+    registerModelExecutorService(host = '127.12.27.1', port = 9001)
+    app.run(host = '127.12.27.1', port = 9001, debug = False)
