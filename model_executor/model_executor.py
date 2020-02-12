@@ -33,60 +33,52 @@ def execute():
 
     city_url = mongo.db.city.find_one({'city': city})
 
-    print(city_url)
-
     if city_url:
         model_url = city_url["url"]
         weather_data = requests.get(model_url).content
-        print(model_url)
         processed = rpyc.async_(post_processor.process)(weather_data)
         urls = rpyc.async_(data_retriever.get_url)("city")
 
-        print(processed)
-
-        while not processed:
+        while not processed.ready:
             continue
+        
         topic_name = 'T3'
-
         consumer = KafkaConsumer(topic_name, auto_offset_reset='earliest', bootstrap_servers=['localhost:9092'],
                                  api_version=(0, 10), consumer_timeout_ms=1000)
+        data = ''
         for msg in consumer:
             data = pickle.loads(msg.value)
-            print(data)
-            print("data from postprocess")
         consumer.close()
     else:
         urls = rpyc.async_(data_retriever.get_url)("city")
 
-        topic_name = 'T2'
-        topic_url = ""
-        while not urls:
+        while not urls.ready:
             continue
-
-        consumer = KafkaConsumer(topic_name, bootstrap_servers=['localhost:9092'],
+        
+        topic_name = 'T2'
+        consumer = KafkaConsumer(topic_name, auto_offset_reset='earliest', bootstrap_servers=['localhost:9092'],
                                  api_version=(0, 10), consumer_timeout_ms=1000)
+        topic_url = ''
         for msg in consumer:
             topic_url = pickle.loads(msg.value)
-            print(urls)
-            id = mongo.db.city.insert({"city": city, "url":topic_url})
         consumer.close()
+        
+        mongo.db.city.insert_one({"city": city, "url":topic_url})
+        
         weather_data = requests.get(topic_url).content
         data = json.loads(weather_data)
-        print(data)
 
         processed = rpyc.async_(post_processor.process)(data)
 
-        while not processed:
+        while not processed.ready:
             continue
 
         topic_name = 'T3'
-
         consumer = KafkaConsumer(topic_name, auto_offset_reset='earliest', bootstrap_servers=['localhost:9092'],
                                  api_version=(0, 10), consumer_timeout_ms=1000)
+        data = ''
         for msg in consumer:
             data = pickle.loads(msg.value)
-            print(data)
-            print("data from postprocess")
         consumer.close()
 
     return ""

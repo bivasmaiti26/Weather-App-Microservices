@@ -46,7 +46,9 @@ class DataRetrieverService(rpyc.Service):
         if len(weather_data) > 0:
             kafka_producer = connect_kafka_producer()
             serialize_weather_data = pickle.dumps(parsed["properties"]["forecastHourly"])
+            print(parsed["properties"]["forecastHourly"])
             status = publish_message(kafka_producer, 'T2', serialize_weather_data)
+            print(status)
             if kafka_producer is not None:
                 kafka_producer.close()
             if status:
