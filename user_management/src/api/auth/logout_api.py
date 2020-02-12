@@ -69,7 +69,7 @@ class LogoutAPI(MethodView):
             else:
                 responseObject = {
                     'status': 'fail',
-                    'message': validation_response[0]
+                    'message': validation_response
                 }
                 return make_response(jsonify(responseObject)), 401
         else:
