@@ -24,7 +24,7 @@ rpyc.core.protocol.DEFAULT_CONFIG['sync_request_timeout'] = None
 data_retriever = rpyc.connect(data_retriever_url, data_retriever_port,
                               config=rpyc.core.protocol.DEFAULT_CONFIG).root
 
-def registerUserManagementService(host, port):
+def registerModelExecutorService(host, port):
     try:
         zk = KazooClient(hosts = 'localhost', read_only = True)
         zk.start()
@@ -63,5 +63,5 @@ def execute():
     return ""
 
 if __name__ == '__main__':
-    registerUserManagementService(host = '127.12.27.1', port = 9001)
+    registerModelExecutorService(host = '127.12.27.1', port = 9001)
     app.run(host = '127.12.27.1', port = 9001, debug = False)
