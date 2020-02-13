@@ -83,6 +83,7 @@ class Header extends Component {
     logout() {
       localStorage.setItem("isLogin", "false");
       localStorage.setItem("currentUser","");
+      localStorage.removeItem("auth_token");
       this.setState({
         isLogin: false,
         showModal1: false
@@ -111,6 +112,7 @@ class Header extends Component {
           if (response.data.message === 'Login successful.') {
             localStorage.setItem("isLogin", "true");
             localStorage.setItem("currentUser",this.state.username);
+            localStorage.setItem("auth_token",response.data.auth_token);
             ToastsStore.success("Successful Log In");
             window.location.reload();
             window.location.href="/Dashboard" 
@@ -178,7 +180,7 @@ class Header extends Component {
     }    
    
     render() {
-      if(localStorage.getItem("isLogin")==="true")
+      if(localStorage.getItem("auth_token"))
       {
         return(
         <div>
