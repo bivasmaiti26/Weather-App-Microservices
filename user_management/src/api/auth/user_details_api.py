@@ -22,19 +22,16 @@ class UserDetailsAPI(MethodView):
             if len(validation_response) == 2:
                 user = User.query.filter_by(username=validation_response[0]).first()
                 response = {
-                    'status': 'success',
-                    'data': {
                         'username': user.username,
                         'email': user.email,
                         'is_admin': user.admin,
                         'registered_on': user.registered_on
                     }
-                }
                 return make_response(jsonify(response)), 200
             
             response = {
                 'status': 'fail',
-                'message': validation_response[0]
+                'message': validation_response
             }
             return make_response(jsonify(response)), 401
         else:
