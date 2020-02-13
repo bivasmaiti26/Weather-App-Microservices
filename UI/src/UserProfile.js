@@ -7,95 +7,45 @@ class userprofile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: "",
-      lastname: "",
-    contact: "",
-    creditscore: "",
-    income : "",
+      username: "",
+      email: "",
+      is_admin: "",
+      registered_on: "",
       editable: "readonly"
     };
   }
-  handleCreditChange = event => {
-    this.setState({
-       
-            creditscore: event.target.value
- 
-    });
-  };
-  handleContactChange = event => {
-    this.setState({
-       
-            contact: event.target.value
- 
-    });
-  };
-  handleIncomeChange = event => {
-    this.setState({
-       
-            income: event.target.value
- 
-    });
-  };
-
+  
   handleEdit = () => {
       this.setState({
           editable : ""
       })
   }
-  handleUpdate = () => {
-      alert('hi');
-  }
+  
   getTransactions = () => {
     let rdata = {
       email: localStorage.getItem("currentUser")
     };
     axios
-      .post("http://127.0.0.1:5000/getPersonalData", rdata)
+      .get("http://localhost:8000/user_details", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("auth_token")
+        },
+        rdata
+    })
       .then(response => {
-        debugger;
         this.setState({
-          firstname: response.data['firstname'],
-          lastname : response.data['lastname'],
-          contact:response.data['contact'],
-          creditscore:response.data['creditscore'],
-          income:response.data['income']
+          username: response.data['username'],
+          email : response.data['email'],
+          is_admin: response.data['is_admin'],
+          registered_on: response.data['registered_on']
         });
-        console.log(response.data);
       })
       .catch(err => {
         console.log(err);
       });
   };
 
-
-  updateUser = () => {
-      debugger;
-    let rdata = {
-      email: localStorage.getItem("currentUser"),
-      contact:this.state.contact,
-      creditscore:this.state.creditscore,
-      income:this.state.income
-    };
-    axios
-      .post("http://127.0.0.1:5000/updateUserProfile", rdata)
-      .then(response => {
-        debugger;
-        this.setState({
-          firstname: response.data['firstname'],
-          lastname : response.data['lastname'],
-          contact:response.data['contact'],
-          creditscore:response.data['creditscore'],
-          income:response.data['income'],
-          editable: "readonly"
-        });
-        console.log(response.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  componentWillMount() {
+componentDidMount() {
     this.getTransactions();
   }
   render() {
@@ -109,22 +59,18 @@ class userprofile extends Component {
             <div className="col-md-12">
               <Table striped bordered hover size="sm">
                 <tr>
-                  <td>Firstname</td><td><input value = {this.state.firstname} readOnly= {this.state.editable} type = "text  "/>  </td>
+                  <td>Username</td><td><input value = {this.state.username} readOnly= {this.state.editable} type = "text  "/>  </td>
                   </tr><tr>
-                  <td>Lastname</td><td>
-                  <input value = {this.state.lastname} readOnly= {this.state.editable} type = "text  " />
+                  <td>Email</td><td>
+                  <input value = {this.state.email} readOnly= {this.state.email} type = "text  " />
                   </td>
                   </tr><tr>
-                  <td>Contact</td><td>
-                  <input value = {this.state.contact} readOnly= {this.state.editable} type = "text  " onChange = {this.handleContactChange}/>
+                  <td>Admin</td><td>
+                  <input value = {this.state.is_admin} readOnly= {this.state.is_admin} type = "text  " onChange = {this.handleContactChange}/>
                   </td>
                   </tr><tr>
-                  <td>Creditscore</td><td>
-                  <input value = {this.state.creditscore} readOnly= {this.state.editable} type = "text  " onChange = {this.handleCreditChange}/>
-                  </td>
-                  </tr><tr>
-                  <td>Income</td><td>
-                  <input value = {this.state.income} readOnly= {this.state.editable} type = "text  " onChange = {this.handleIncomeChange}/>
+                  <td>Registered on</td><td>
+                  <input value = {this.state.registered_on} readOnly= {this.state.registered_on} type = "text  " onChange = {this.handleCreditChange}/>
                   </td>
                   </tr>
                   
