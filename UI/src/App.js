@@ -8,6 +8,7 @@ import Dashboard from "./Dashboard";
 import "./App.css";
 import UserProfile from "./UserProfile"
 import Search from "./Search"
+import WeatherData from "./weather_data";
 
 class App extends Component {
   render() {
@@ -21,6 +22,8 @@ class App extends Component {
           <Route exact path="/Dashboard" component={Dashboard} />
           <Route exact path="/UserProfile" component={UserProfile} />
           <Route exact path="/Search" component={Search} />
+          <Route exact path="/Search" component={Search} />
+          <Route exact path="/WeatherData" component={WeatherData} />
           {/*<Footer />*/}
         </Router>
       </>
