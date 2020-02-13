@@ -15,6 +15,7 @@ module.exports = function(app) {
     
     app.route('/user_details')
     .get(UserManagementControllerObject.user_details); 
+    
   app.route('/token/validate')
     .post(SessionManagementControllerObject.validateToken)
 };
