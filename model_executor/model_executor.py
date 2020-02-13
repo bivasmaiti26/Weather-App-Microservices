@@ -38,11 +38,13 @@ def registerModelExecutorService(host, port):
     except ConnectionLossException:
         zk.stop()
         
-@app.route('/model-executor', methods=['GET'])
+@app.route('/model-executor', methods=['POST'])
 def execute():
     params = request.args.to_dict()
-    city = params['city']
-    city_url = mongo.db.city.find_one({'city': city})
+    lat = params['lat']
+    long = params['long']
+    address_key = 'lat:' + str(lat) + ' long:' + str(long)
+    city_url = mongo.db.city.find_one({'address': address_key})
 
     if city_url:
         model_url = city_url["url"]
@@ -53,8 +55,10 @@ def execute():
             continue
         
     else:
-        url = data_retriever.get_url(city)
-        mongo.db.city.insert_one({"city": city, "url":url})
+        address = str(lat) + ',' + str(long)
+        url = data_retriever.get_url(address)
+        print('url', url)
+        mongo.db.city.insert_one({'address': address_key, 'url':url})
         weather_data = requests.get(url).content
         processed = rpyc.async_(post_processor.process)(weather_data)
 
