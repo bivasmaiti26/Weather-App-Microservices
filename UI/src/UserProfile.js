@@ -76,7 +76,6 @@ componentDidMount() {
                   
                 
               </Table>
-              <Button onClick = {this.handleEdit}>Edit</Button> <Button onClick = {this.updateUser}>Update</Button>
             </div>
           </div>
         </div>
