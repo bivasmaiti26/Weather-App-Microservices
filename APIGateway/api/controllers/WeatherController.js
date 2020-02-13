@@ -19,8 +19,10 @@ exports.getWeatherData = function(req,res) {
             zookeeper_data = JSON.parse(data.toString('utf8'))
             host = zookeeper_data["host"];
             port = zookeeper_data["port"];
-            url = "http://"+host+":"+port.toString()+'/getWeatherData';
-            WeatherServiceAPICall(url,req)
+            var long = req.body.lng;
+            var lat = req.body.lat;
+            url = "http://"+host+":"+port.toString()+'/model-executor?lat=' + lat + '&long=' + long;
+            WeatherServiceAPICall(url,req.body)
         }
     );    
     client.connect();
@@ -32,8 +34,7 @@ exports.getWeatherData = function(req,res) {
             url: url,
             headers: {
               "Access-Control-Allow-Origin": "*"
-            },
-            data:req
+            }
           })
           .then(response => {
             console.log("Data added to kafka")
