@@ -22,12 +22,12 @@ exports.getWeatherData = function(req,res) {
             var long = req.body.lng;
             var lat = req.body.lat;
             url = "http://"+host+":"+port.toString()+'/model-executor?lat=' + lat + '&long=' + long;
-            WeatherServiceAPICall(url,req.body)
+            WeatherServiceAPICall(url,req.body,res)
         }
     );    
     client.connect();
 
-    function WeatherServiceAPICall(url,req)
+    function WeatherServiceAPICall(url,req,res)
     {
         return axios({
             method: "post",
@@ -38,6 +38,7 @@ exports.getWeatherData = function(req,res) {
           })
           .then(response => {
             console.log("Data added to kafka")
+            res.send('')
           })
           .catch(err => {
             console.log(err);
