@@ -29,7 +29,7 @@ class Search extends Component {
   render() {
       return(
           <>
-    <div style={{paddingLeft:70, paddingTop:40}}>
+    <div style={{paddingLeft:70, paddingTop:40, height:100}}>
     <AlgoliaPlaces
       placeholder='Write an address here'
       //value={this.state.address}
