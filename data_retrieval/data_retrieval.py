@@ -10,13 +10,8 @@ class DataRetrieverService(rpyc.Service):
     def on_disconnect(self, conn):
         pass
 
-    def exposed_get_url(self, city):
-        print(city)
-
-        longitude = 39.7456
-        latitude = -97.0892
-
-        api_endpoint = "https://api.weather.gov/points/" + str(longitude) + "," + str(latitude)
+    def exposed_get_url(self, address):
+        api_endpoint = "https://api.weather.gov/points/" + address
         weather_data = requests.get(api_endpoint).content
         parsed = json.loads(weather_data)
         return parsed["properties"]["forecastHourly"]
