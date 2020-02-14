@@ -32,5 +32,19 @@ public class TokenUtility {
                 return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
             }
     }
+    public String getUserNameFromToken(String token){
+        try{
+            Algorithm algorithm = Algorithm.HMAC256(System.getenv("SECRET_KEY"));
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .build();
+            DecodedJWT jwt = verifier.verify(token);
+            return jwt.getSubject().toString();
+
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return "User not found";
+        }
+    }
 
 }
