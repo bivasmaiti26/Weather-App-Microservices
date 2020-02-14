@@ -11,12 +11,31 @@ public class Session {
     private String userName;
     private String requestName;
     private String requestStatus;
+    private String token;
+    private String city;
 
-    public Session(Date requestTime, String userName, String requestName, String requestStatus) {
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Session(Date requestTime, String userName, String requestName, String requestStatus, String token) {
         this.requestTime = requestTime;
         this.userName = userName;
         this.requestName = requestName;
         this.requestStatus = requestStatus;
+        this.token = token;
     }
 
     public Date getRequestTime() {
