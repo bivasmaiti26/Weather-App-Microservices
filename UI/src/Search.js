@@ -12,11 +12,13 @@ class Search extends Component {
   }
 
   sendCityData(suggestion) {
+    console.log('hi');
+    debugger;
       console.log(suggestion)
     return axios({
         method: "post",
         url: "http://localhost:8000/getWeatherData",
-        headers: { "Access-Control-Allow-Origin": "*" },
+        headers: { "Access-Control-Allow-Origin": "*" ,Authorization: "Bearer " + localStorage.getItem("auth_token")},
         data:suggestion
       })
         .then(response => {
@@ -44,7 +46,7 @@ class Search extends Component {
       }}
  
       onChange={({ rawAnswer, suggestion, suggestionIndex }) => 
-        this.sendCityData(suggestion.latlng)}
+        this.sendCityData(suggestion)}
  
     />  </div>    
  </>
