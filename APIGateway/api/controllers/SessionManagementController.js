@@ -1,5 +1,5 @@
 const axios = require('axios');
-const util = require('../utils');
+
 exports.validateToken = function(req, res) {
     var zookeeper = require('node-zookeeper-client');
     var host,port;

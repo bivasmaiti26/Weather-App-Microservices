@@ -4,14 +4,15 @@ import com.blitzkrieg.sessionmanagement.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController("/")
-public class TestController {
+public class TokenController {
     private final SessionRepository repository ;
-    public TestController(SessionRepository repository) {
+    public TokenController(SessionRepository repository) {
         this.repository = repository;
     }
     @GetMapping("/getSessions/{username}")
@@ -19,6 +20,8 @@ public class TestController {
 
         return repository.findByUserName(username);
     }
+    @PostMapping("/addNewSession")
+    public saveSession(Session session,);
 
 
 
