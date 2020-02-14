@@ -24,11 +24,8 @@ exports.login = function(req, res) {
             zookeeper_data = JSON.parse(data.toString('utf8'))
             host = zookeeper_data["host"];
             port = zookeeper_data["port"];
-            console.log(host);
-            console.log(port);
             url = "http://" + host + ":" + port.toString() + '/auth/login';
-            console.log(url);
-
+            
             username = req.body.username;
             password = req.body.password;
 
@@ -52,7 +49,6 @@ exports.login = function(req, res) {
             }
           })
           .then(response => {
-            console.log(response.data);
             res.send(response.data);
             utils.addNewSession({
               requestTime:new Date(),
@@ -62,7 +58,6 @@ exports.login = function(req, res) {
             });
           })
           .catch(err => {
-            console.log(err);
             res.send(err.response.data);
             utils.addNewSession({
               requestTime:new Date(),
@@ -96,17 +91,13 @@ exports.register = function(req, res) {
             zookeeper_data = JSON.parse(data.toString('utf8'))
             host = zookeeper_data["host"];
             port = zookeeper_data["port"];
-            console.log(host);
-            console.log(port);
             
             url = "http://" + host + ":" + port.toString() + '/auth/register';
-            console.log(url);
-
+            
             username = req.body.username;
             email = req.body.email;
             password = req.body.password;
 
-            console.log(username + ', ' + email + ', ' + password);
             RegisterAPICall(url, username, email, password, res);
         }
     );    
@@ -128,7 +119,6 @@ exports.register = function(req, res) {
             }
           })
           .then(response => {
-            console.log(response.data);
             utils.addNewSession({
                 requestTime:new Date(),
                 userName: username,
@@ -138,7 +128,6 @@ exports.register = function(req, res) {
             res.send(response.data);
           })
           .catch(err => {
-            console.log(err);
             res.send({ err });
           });
     }
@@ -165,14 +154,15 @@ exports.user_details = function(req, res) {
             zookeeper_data = JSON.parse(data.toString('utf8'))
             host = zookeeper_data["host"];
             port = zookeeper_data["port"];
-            console.log(host);
-            console.log(port);
             
             url = "http://" + host + ":" + port.toString() + '/auth/user_details';
-            console.log(url);
+            
+            var token = '';
 
-            var token = utils.get_auth_token(req);
-            console.log("token: " + token);
+            auth_header = req.header('Authorization');
+            if (auth_header && auth_header.split(' ')[0] === 'Bearer') {
+              token = auth_header.split(' ')[1];
+            } 
             
             UserDetailsAPICall(url, token, res);
         }
@@ -191,11 +181,11 @@ exports.user_details = function(req, res) {
             }
           })
           .then(response => {
-            console.log(response.data);
+            console.log("In user_details controller call, response: " + response.data);
             res.send(response.data);
           })
           .catch(err => {
-            console.log(err);
+            console.log("In user_details controller call, err: " + err);
             res.send({ err });
           });
     }
