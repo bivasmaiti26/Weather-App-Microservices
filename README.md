@@ -1,2 +1,3 @@
 # Blitzkrieg
-This is the repository for the first assignment for team Blitzkrieg
+
+For system running instructions and detail information about dependencies, please visit [wiki](https://github.com/airavata-courses/Blitzkrieg/wiki/Weather-App).  
