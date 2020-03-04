@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("thertion12/user-management")
+        app = sh 'docker-compose –f user_management/build-compose.yml run –rm compile'
     }
 
     stage('Push image') {
