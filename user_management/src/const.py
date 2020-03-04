@@ -1,7 +1,7 @@
 # user_management/src/Const.py
 
 class Constant:
-    DATABASE_BASE_URL = 'postgresql://postgres:1234@localhost/'
+    DATABASE_BASE_URL = 'postgresql://postgres@postgres/'
     DATABASE_NAME = 'user_management'
     APP_SETTINGS = 'src.config.DevelopmentConfig'
     APP_SETTINGS_TEST = 'src.config.TestConfig'
