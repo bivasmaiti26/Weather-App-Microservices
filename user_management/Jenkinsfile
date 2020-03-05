@@ -4,6 +4,8 @@ node {
     }
 
     stage('Build image') {
+	    	bat "cd"
+	    	bat "dir"
 		bat "docker-compose -f user-management/docker-compose.yml build"
     }
 	
