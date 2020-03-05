@@ -1,16 +1,18 @@
 node {
+    def app
+	
     stage('Code checkout') {
         checkout scm
     }
 
     stage('Build image') {
-	    	bat "docker-compose -f .\\user_management\\docker-compose.yml build"
+	app = bat "docker-compose -f .\\user_management\\docker-compose.yml build"
     }
 	
     stage('Push image') {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-	    bat "docker login -u thertion12 -p *Batu_20110656*"
-            bat "docker push thertion12/user_management"
+	    app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
         }
     }
 }
