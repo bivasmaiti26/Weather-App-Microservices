@@ -4,7 +4,7 @@ node {
     }
 
     stage('Build image') {
-	    	bat "docker-compose --no-cache -f .\\user_management\\docker-compose.yml build"
+	    	bat "docker-compose -f .\\user_management\\docker-compose.yml build"
     }
 	
     stage('Push image') {
