@@ -4,15 +4,9 @@ node {
     }
 
     stage('Build image') {
-	    	bat "cd user_management"
-	    	bat "dir"
-		bat "docker-compose -f .\\user_management\\docker-compose.yml build"
+	    	bat "docker-compose -f .\\user_management\\docker-compose.yml build"
     }
 	
-	stage('Test image') {
-		bat "docker-compose up"
-	}
-
     stage('Push image') {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             bat "docker push thertion12/user_management"
