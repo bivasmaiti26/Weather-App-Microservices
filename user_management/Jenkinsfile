@@ -9,6 +9,7 @@ node {
 	
     stage('Push image') {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+	    bat "docker login -u thertion12 -p *Batu_20110656*"
             bat "docker push thertion12/user_management"
         }
     }
