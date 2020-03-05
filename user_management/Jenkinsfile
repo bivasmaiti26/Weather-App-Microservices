@@ -4,9 +4,9 @@ node {
     }
 
     stage('Build image') {
-	    	bat "cd"
+	    	bat "cd user-management"
 	    	bat "dir"
-		bat "docker-compose -f %cd%\\user-management\\docker-compose.yml build"
+		bat "docker-compose -f docker-compose.yml build"
     }
 	
 	stage('Test image') {
