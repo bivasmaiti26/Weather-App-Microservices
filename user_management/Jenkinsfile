@@ -1,18 +1,18 @@
 node {
-    def app
-	
     stage('Code checkout') {
         checkout scm
     }
 
     stage('Build image') {
-	app = bat "docker-compose -f .\\user_management\\docker-compose.yml build"
+        bat "docker-compose -f .\\user_management\\docker-compose.yml build"
     }
 	
     stage('Push image') {
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-	    app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
-        }
+	withCredentials([usernamePassword( credentialsId: 'docker-hub-credentials', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+	    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+	        bat "docker login -u $USER -p $PWD"
+		bat "docker push thertion12/user_management"
+	    }
+	}
     }
 }
