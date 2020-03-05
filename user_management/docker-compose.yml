@@ -22,7 +22,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: thertion12/user_management:latest
+    image: thertion12/user_management:B${BUILD_NUMBER}
     ports:
       - 6000:6000
     volumes:
