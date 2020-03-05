@@ -1,4 +1,8 @@
 version: "3.7"
+networks:
+    default:
+      external:
+        name: kafka-docker_default
 services:
   postgres:
     container_name: postgres
