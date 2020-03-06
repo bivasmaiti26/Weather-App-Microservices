@@ -1,0 +1,42 @@
+version: "3.7"
+networks:
+    default:
+      external:
+        name: kafka-docker_default
+
+services:
+  dataret:
+    container_name: data-retrieval
+    restart: always
+    build:
+      context: ./data_retrieval
+      dockerfile: Dockerfile
+    image: data-retrieval:1.0
+    ports:
+      - "9002:9002"
+
+
+  datapost:
+    container_name: data-post-process
+    restart: always
+    build:
+      context: ./data_post_analysis
+      dockerfile: Dockerfile
+    image: data-post-process:1.0
+    ports:
+      - "9001:9001"
+
+
+  modelexec:
+    container_name: model-executer
+    restart: always
+    build:
+      context: ./model_executor
+      dockerfile: Dockerfile
+    image: model-executer:1.0
+    ports:
+      - "9003:9003"
+
+    depends_on:
+      - dataret
+      - datapost
