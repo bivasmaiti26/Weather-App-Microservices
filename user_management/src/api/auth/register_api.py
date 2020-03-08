@@ -17,7 +17,7 @@ class RegisterAPI(MethodView):
         data = request.get_json()
         
         user = User.query.filter_by(username=data.get('username')).first()
-        
+        print("Hi")
         if not user:
             try:
                 user = User(

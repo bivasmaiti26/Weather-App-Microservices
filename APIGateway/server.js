@@ -10,6 +10,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 const consumer = require('./api/listeners/Consumer');
 var routes = require('./api/routes/routes'); //importing route
+
+//console.log(top)
 routes(app); //register the route
-consumer.runConsumer();
+consumer.createTopicAndRun ();
+
+
 app.listen(port);

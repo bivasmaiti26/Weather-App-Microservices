@@ -1,0 +1,125 @@
+version: "3.7"
+networks:
+    default:
+        external:
+            name: kafka-docker_default
+
+services:
+    zookeeper:
+        image: confluentinc/cp-zookeeper:5.3.1
+        hostname: zookeeper
+        ports:
+            - "2181:2181"
+        environment:
+            ZOOKEEPER_CLIENT_PORT: 2181
+
+    kafka:
+        image: confluentinc/cp-kafka:5.3.1
+        container_name: kafka
+        hostname: kafka
+        ports:
+            - "9092:9092"
+        restart: always
+        
+        environment:
+            KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka:29092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
+            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+            KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+            KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+            KAFKA_BROKER_ID: 1
+            KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+            KAFKA_DEFAULT_REPLICATION_FACTOR: 1
+            KAFKA_NUM_PARTITIONS: 3
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+        depends_on:
+            - zookeeper
+    dataret:
+        container_name: data-retrieval
+        restart: always
+        build:
+            context: ./weather_service/data_retrieval
+            dockerfile: Dockerfile
+        image: data-retrieval:1.0
+        ports:
+            - "9002:9002"
+
+    datapost:
+        container_name: data-post-process
+        restart: always
+        build:
+            context: ./weather_service/data_post_analysis
+            dockerfile: Dockerfile
+        image: data-post-process:1.0
+        ports:
+            - "9001:9001"
+
+    modelexec:
+        container_name: model-executer
+        restart: always
+        build:
+            context: ./weather_service/model_executor
+            dockerfile: Dockerfile
+        image: model-executer:1.0
+        ports:
+            - "9003:9003"
+        depends_on:
+            - dataret
+            - datapost
+            - zookeeper
+            - kafka
+    api:
+        container_name: api-gateway
+        restart: always
+        build:
+            context: ./APIGateway
+            dockerfile: Dockerfile
+        image: api-gateway:1.0
+        ports:
+            - "8000:8000"
+        depends_on:
+            - zookeeper
+            - kafka
+    ui:
+        container_name: user-interface
+        restart: always
+        build:
+            context: ./UI
+            dockerfile: Dockerfile
+        image: user-interface:1.0
+        ports:
+            - "3000:3000"
+        depends_on: 
+            - api
+        
+    postgres:
+        container_name: postgres
+        restart: always
+        image: postgres:10
+        environment:
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_DB=${POSTGRES_DB}
+            - POSTGRES_HOST_AUTH_METHOD=trust
+        volumes:
+            - flask-app-db:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+    usermgmt:
+        container_name: user-management
+        restart: always
+        build:
+            context: ./user_management
+            dockerfile: Dockerfile
+        image: user-management:1.0
+        
+        ports:
+            - 6000:6000
+       
+        depends_on:
+            - postgres
+            - zookeeper
+    
+    
+
+volumes:
+  flask-app-db:
+    name: flask-app-db

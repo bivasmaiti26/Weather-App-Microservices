@@ -6,7 +6,7 @@ exports.login = function(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     var zookeeper = require('node-zookeeper-client');
     var host,port;
-    var client = zookeeper.createClient('localhost:2181');
+    var client = zookeeper.createClient('zookeeper:2181');
     var path = '/user_management';
     var url;
     var username, password;
@@ -73,7 +73,7 @@ exports.register = function(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     var zookeeper = require('node-zookeeper-client');
     var host,port;
-    var client = zookeeper.createClient('localhost:2181');
+    var client = zookeeper.createClient('zookeeper:2181');
     var path = '/user_management';
     var url;
     var username, password;
@@ -136,7 +136,7 @@ exports.register = function(req, res) {
 exports.user_details = function(req, res) {
     var zookeeper = require('node-zookeeper-client');
     var host,port;
-    var client = zookeeper.createClient('localhost:2181');
+    var client = zookeeper.createClient('zookeeper:2181');
     var path = '/user_management';
     var url;
     var username, password;

@@ -52,5 +52,5 @@ app.register_blueprint(user_details_blueprint)
 app.register_blueprint(logout_blueprint)
 
 if __name__ == '__main__':
-    registerUserManagementService(host = constant.HOST, port = constant.PORT)
+    registerUserManagementService(host = "usermgmt", port = constant.PORT)
     app.run(host = constant.HOST, port = constant.PORT, debug = False)
