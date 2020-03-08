@@ -68,4 +68,4 @@ def execute():
 
 if __name__ == '__main__':
     registerModelExecutorService(host = 'localhost', port = 9001)
-    app.run(host = 'localhost', port = 9001, debug = False)
+    app.run(host = 'localhost', port = 9003, debug = False)
