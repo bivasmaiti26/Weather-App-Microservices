@@ -1,0 +1,35 @@
+version: "3.7"
+networks:
+  default:
+    external:
+      name: blitzkrieg-default-network
+services:
+  postgres:
+    container_name: postgres
+    restart: always
+    image: postgres:10
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - flask-app-db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  usermgmt:
+    container_name: user-management
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: user-management:1.0
+
+    ports:
+      - 6000:6000
+
+    depends_on:
+      - postgres
+
+volumes:
+  flask-app-db:
+    name: flask-app-db

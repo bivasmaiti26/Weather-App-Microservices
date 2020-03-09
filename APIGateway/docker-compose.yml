@@ -1,0 +1,15 @@
+version: "3.7"
+networks:
+    default:
+      external:
+        name: blitzkrieg-default-network
+services: 
+    api:
+        container_name: api-gateway
+        restart: always
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: api-gateway:1.0
+        ports:
+            - "8000:8000"

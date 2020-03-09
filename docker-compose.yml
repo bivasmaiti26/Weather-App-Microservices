@@ -2,7 +2,7 @@ version: "3.7"
 networks:
     default:
         external:
-            name: kafka-docker_default
+            name: blitzkrieg-default-network
 
 services:
     zookeeper:
