@@ -26,7 +26,7 @@ module.exports = {
             }
           );
           consumer.on('message', function (message) {
-            console.log(message);
+            // console.log(message);
             console.log('here');
             wss.clients.forEach(function each(client) {
                 client.send(message.value);

@@ -13,3 +13,4 @@ services:
         image: api-gateway:1.0
         ports:
             - "8000:8000"
+            - "9090:9090"
