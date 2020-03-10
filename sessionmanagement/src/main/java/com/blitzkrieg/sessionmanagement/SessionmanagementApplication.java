@@ -1,13 +1,18 @@
 package com.blitzkrieg.sessionmanagement;
 
 import com.blitzkrieg.sessionmanagement.zookeeper.ZookeeperHelper;
+
+import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
+
+import org.apache.zookeeper.WatchedEvent;
+import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.Watcher.Event.KeeperState;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@EnableDiscoveryClient
 @SpringBootApplication
 public class SessionmanagementApplication {
 	private static ZooKeeper zk;
@@ -19,8 +24,8 @@ public class SessionmanagementApplication {
 
 		try {
 			zoo = new ZookeeperHelper();
-			zk = zoo.connect("localhost");
-			byte[] data = "{\"host\":\"localhost\", \"port\":\"8084\"}".getBytes();
+			zk = zoo.connect("zookeeper");
+			byte[] data = "{\"host\":\"session\", \"port\":\"8084\"}".getBytes();
 			Stat stat = zoo.znode_exists(zk,"/session_management"); // Stat checks the path of the znode
 
 			if(stat != null) {

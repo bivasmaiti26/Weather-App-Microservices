@@ -1,4 +1,4 @@
 module.exports = {
     inbound_topic: 'inbound',
-    kafka_server: 'localhost:2181',
+    kafka_server: 'zookeeper:2181',
   };

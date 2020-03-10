@@ -117,9 +117,17 @@ services:
         depends_on:
             - postgres
             - zookeeper
-    
-    
-
+    session:
+        container_name: session-management
+        restart: always
+        build:
+            context: ./sessionmanagement
+            dockerfile: Dockerfile
+        image: session-management:1.0
+        depends_on: 
+            - zookeeper
+        ports:
+            - "8084:8084"
 volumes:
   flask-app-db:
     name: flask-app-db

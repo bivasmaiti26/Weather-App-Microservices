@@ -34,7 +34,9 @@ public class TokenUtility {
     }
     public String getUserNameFromToken(String token){
         try{
+            System.out.println(token);
             Algorithm algorithm = Algorithm.HMAC256(System.getenv("SECRET_KEY"));
+            System.out.println(System.getenv("SECRET_KEY"));
             JWTVerifier verifier = JWT.require(algorithm)
                     .build();
             DecodedJWT jwt = verifier.verify(token);

@@ -12,6 +12,7 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_HOST_AUTH_METHOD=trust
+
     volumes:
       - flask-app-db:/var/lib/postgresql/data
     ports:
@@ -23,7 +24,8 @@ services:
       context: .
       dockerfile: Dockerfile
     image: user-management:1.0
-
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
     ports:
       - 6000:6000
 

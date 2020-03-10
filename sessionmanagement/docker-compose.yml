@@ -1,0 +1,17 @@
+version: "3.7"
+networks:
+  default:
+    external:
+      name: blitzkrieg-default-network
+services:
+  session:
+    container_name: session-management
+    restart: always
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: session-management:1.0
+    ports:
+      - "8084:8084"
