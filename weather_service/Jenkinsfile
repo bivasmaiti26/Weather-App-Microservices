@@ -6,7 +6,7 @@ node {
     stage('Build image') {
     	withCredentials([usernamePassword( credentialsId: 'jenkins-creds', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
 	    sh "echo $USER $PASSWORD"
-            sh "echo $USER | sudo -S docker-compose -f ./weather_service/docker-compose.yml build"
+            sh "docker-compose -f ./weather_service/docker-compose.yml build"
 	}
     }
 	
