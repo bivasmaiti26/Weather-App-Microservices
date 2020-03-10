@@ -4,7 +4,9 @@ node {
     }
 
     stage('Build image') {
-        sh "sudo -S docker-compose -f ./weather_service/docker-compose.yml build"
+    	withCredentials([usernamePassword( credentialsId: 'jenkins-creds', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+            sh "echo $USER | sudo -S docker-compose -f ./weather_service/docker-compose.yml build"
+	}
     }
 	
     stage('Push image') {
