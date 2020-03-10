@@ -4,7 +4,7 @@ node {
     }
 
     stage('Build image') {
-        sh "sudo docker-compose -f ./weather_service/docker-compose.yml build"
+        sh "sudo -S docker-compose -f ./weather_service/docker-compose.yml build"
     }
 	
     stage('Push image') {
