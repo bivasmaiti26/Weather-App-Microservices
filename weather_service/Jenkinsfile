@@ -1,0 +1,21 @@
+node {
+    stage('Code checkout') {
+        checkout scm
+    }
+
+    stage('Build image') {
+        bash "docker-compose -f .\\weather_service\\docker-compose.yml build"
+    }
+	
+    stage('Push image') {
+	withCredentials([usernamePassword( credentialsId: 'docker-hub-credentials', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+	    def registry_url = "registry.hub.docker.com/"
+            bash "docker login -u $USER -p $PASSWORD ${registry_url}"
+            docker.withRegistry("http://${registry_url}", "docker-hub-credentials") {
+	        bash "docker push thertion12/data-retrieval"
+          bash "docker push thertion12/data-post-process"
+          bash "docker push thertion12/model-executer"
+	    }
+	}
+    }
+}
