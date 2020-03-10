@@ -5,19 +5,18 @@ node {
 
     stage('Build image') {
     	withCredentials([usernamePassword( credentialsId: 'jenkins-creds', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
-	    sh "echo $USER $PASSWORD"
-            sh "sudo -S docker-compose -f ./weather_service/docker-compose.yml build"
+	    sh "sudo -S docker-compose -f ./weather_service/docker-compose.yml build"
 	}
     }
 	
     stage('Push image') {
 	withCredentials([usernamePassword( credentialsId: 'docker-hub-credentials', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
 	    def registry_url = "registry.hub.docker.com/"
-            sh "sudo docker login -u $USER -p $PASSWORD ${registry_url}"
+            sh "sudo -S docker login -u $USER -p $PASSWORD ${registry_url}"
             docker.withRegistry("http://${registry_url}", "docker-hub-credentials") {
-	        sh "sudo docker push thertion12/data-retrieval"
-          	sh "sudo docker push thertion12/data-post-process"
-          	sh "sudo docker push thertion12/model-executer"
+	        sh "sudo -S docker push thertion12/data-retrieval"
+          	sh "sudo -S docker push thertion12/data-post-process"
+          	sh "sudo -S docker push thertion12/model-executer"
 	    }
 	}
     }
