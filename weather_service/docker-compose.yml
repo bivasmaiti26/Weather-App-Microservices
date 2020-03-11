@@ -10,7 +10,7 @@ services:
     build:
       context: ./data_retrieval
       dockerfile: Dockerfile
-    image: thertion12/data-retrieval:${BUILD_NUMBER}
+    image: thertion12/data-retrieval:B${BUILD_NUMBER}
     ports:
       - "9002:9002"
 
@@ -21,7 +21,7 @@ services:
     build:
       context: ./data_post_analysis
       dockerfile: Dockerfile
-    image: thertion12/data-post-process:${BUILD_NUMBER}
+    image: thertion12/data-post-process:B${BUILD_NUMBER}
     ports:
       - "9001:9001"
 
@@ -32,7 +32,7 @@ services:
     build:
       context: ./model_executor
       dockerfile: Dockerfile
-    image: thertion12/model-executer:${BUILD_NUMBER}
+    image: thertion12/model-executer:B${BUILD_NUMBER}
     ports:
       - "9003:9003"
 
