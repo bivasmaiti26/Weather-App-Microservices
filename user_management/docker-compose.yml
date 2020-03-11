@@ -23,7 +23,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: user-management:1.0
+    image: thertion12/user-management
     environment:
       - SECRET_KEY=${SECRET_KEY}
     ports:
