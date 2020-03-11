@@ -14,9 +14,9 @@ node {
 	    def registry_url = "registry.hub.docker.com/"
             sh "sudo -S docker login -u $USER -p $PASSWORD docker.io"
 	    docker.withRegistry("http://${registry_url}", "docker-hub-credentials") {
-	        sh "sudo -S docker push thertion12/data-retrieval:B${BUILD_NUMBER}"
-          	sh "sudo -S docker push thertion12/data-post-process:B${BUILD_NUMBER}"
-          	sh "sudo -S docker push thertion12/model-execute:B${BUILD_NUMBER}r"
+	        sh "sudo -S docker push thertion12/data-retrieval:${BUILD_NUMBER}"
+          	sh "sudo -S docker push thertion12/data-post-process:${BUILD_NUMBER}"
+          	sh "sudo -S docker push thertion12/model-execute:${BUILD_NUMBER}r"
 	    }
 	}
     }
