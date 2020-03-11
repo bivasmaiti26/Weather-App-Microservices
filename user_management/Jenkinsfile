@@ -5,7 +5,7 @@ node {
 
     stage('Build image') {
         sh "sudo -S docker-compose -f ./user_management/docker-compose.yml build"
-	sh "sudo -S docker-compose up -d"
+	sh "sudo -S docker-compose -f ./user_management/docker-compose.yml up -d"
 	sh "sudo -S docker container ls"
 	
     }
