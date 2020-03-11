@@ -12,6 +12,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: session-management:1.0
+    image: thertion12/session-management
     ports:
       - "8084:8084"
