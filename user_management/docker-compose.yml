@@ -9,8 +9,8 @@ services:
     restart: always
     image: postgres:10
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=postgres
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_HOST_AUTH_METHOD=trust
 
     volumes:
@@ -25,7 +25,7 @@ services:
       dockerfile: Dockerfile
     image: user-management:1.0
     environment:
-      - SECRET_KEY=E\\n-\\x9a$\\x0c\\xd4"\\xa7\\xa5\\xa6\\xa5L\\x11c\\x1b\\xa4%+\\xcb+\\xca\\x8e\\x1f
+      - SECRET_KEY=${SECRET_KEY}
     ports:
       - 6000:6000
 
