@@ -1,0 +1,22 @@
+node {
+    stage('Code checkout') {
+        checkout scm
+    }
+
+    stage('Build image') {
+    	withCredentials([usernamePassword( credentialsId: 'jenkins-creds', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+	    sh "sudo -S docker-compose -f ./sessionmanagement/docker-compose.yml build"
+	}
+    }
+	
+    stage('Push image') {
+	withCredentials([usernamePassword( credentialsId: 'docker-hub-credentials', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+	    def registry_url = "registry.hub.docker.com/"
+            sh "sudo -S docker login -u $USER -p $PASSWORD docker.io"
+	    docker.withRegistry("http://${registry_url}", "docker-hub-credentials") {
+	        sh "sudo -S docker push thertion12/session-management"
+          	
+	    }
+	}
+    }
+}
