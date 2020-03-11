@@ -13,6 +13,9 @@ node {
             sh "sudo -S docker login -u $USER -p $PASSWORD ${registry_url}"
             docker.withRegistry("http://${registry_url}", "docker-hub-credentials") {
 	        sh "sudo -S docker push thertion12/user-management"
+		sh "sudo -S docker push thertion12/postgres"
+		    
+		    
 	    }
 	}
     }
