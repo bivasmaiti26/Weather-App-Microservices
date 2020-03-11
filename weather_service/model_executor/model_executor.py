@@ -13,13 +13,13 @@ app.config['MONGO_URI'] = 'mongodb+srv://weather_user:weather@cluster0-4xpye.mon
 mongo = PyMongo(app)
 
 post_processor_url = 'datapost'
-post_processor_port = 9001
+post_processor_port = 30901
 rpyc.core.protocol.DEFAULT_CONFIG['sync_request_timeout'] = None
 post_processor = rpyc.connect(post_processor_url, post_processor_port,
                               config=rpyc.core.protocol.DEFAULT_CONFIG).root
 
 data_retriever_url = 'dataret'
-data_retriever_port = 9002
+data_retriever_port = 30902
 rpyc.core.protocol.DEFAULT_CONFIG['sync_request_timeout'] = None
 data_retriever = rpyc.connect(data_retriever_url, data_retriever_port,
                               config=rpyc.core.protocol.DEFAULT_CONFIG).root
