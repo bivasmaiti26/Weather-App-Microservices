@@ -16,7 +16,7 @@ node {
 	    docker.withRegistry("http://${registry_url}", "docker-hub-credentials") {
 	        sh "sudo -S docker push thertion12/data-retrieval"
           	sh "sudo -S docker push thertion12/data-post-process"
-          	sh "sudo -S docker push thertion12/model-execute"
+          	sh "sudo -S docker push thertion12/model-executer"
 	    }
 	}
     }
