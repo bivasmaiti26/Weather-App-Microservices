@@ -7,7 +7,7 @@ services:
   postgres:
     container_name: postgres
     restart: always
-    image: thertion12/postgres:10
+    image: thertion12/postgres
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_DB=${POSTGRES_DB}
