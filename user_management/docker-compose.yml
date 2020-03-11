@@ -31,3 +31,6 @@ services:
 
     depends_on:
       - postgres
+
+volumes:
+  flask-app-db:/var/lib/postgresql/data
