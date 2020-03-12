@@ -26,7 +26,7 @@ data_retriever = rpyc.connect(data_retriever_url, data_retriever_port,
 
 def registerModelExecutorService(host, port):
     try:
-        zk = KazooClient(hosts = 'zookeeper', read_only = True)
+        zk = KazooClient(hosts = 'localhost', read_only = True)
         zk.start()
         path = '/WeatherData'
         data = json.dumps({'host': host, 'port': port}).encode('utf-8')
