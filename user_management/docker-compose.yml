@@ -11,8 +11,8 @@ services:
     env_file:
       - '.env'
     environment:
-      - POSTGRES_USER=${{POSTGRES_USER}}
-      - POSTGRES_DB=${{POSTGRES_DB}}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_HOST_AUTH_METHOD=trust
 
     volumes:
@@ -29,7 +29,7 @@ services:
     env_file:
       - '.env'
     environment:
-      - SECRET_KEY=${{SECRET_KEY}}
+      - SECRET_KEY=${SECRET_KEY}
     ports:
       - 6000:6000
 
