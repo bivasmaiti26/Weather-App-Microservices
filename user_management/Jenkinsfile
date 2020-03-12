@@ -4,6 +4,7 @@ node {
     }
 
     stage('Build image') {
+	sh "sudo -S docker network create --driver bridge blitzkrieg-default-network || true"
         sh "sudo -S docker-compose -f ./user_management/docker-compose.yml build"
 	sh "sudo -S docker-compose -f ./user_management/docker-compose.yml up -d postgres"
 	sh "sudo -S docker commit postgres"
