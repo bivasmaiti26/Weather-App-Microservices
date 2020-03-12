@@ -12,8 +12,8 @@ node {
             script: "sudo -S docker images --format='{{.Repository}} {{.ID}}' | grep 'postgres' | cut -d' ' -f2",
             returnStdout: true
         ).trim()
-	 echo "Image id: ${image_id}"
-	// sh "sudo -S docker tag | `sudo -S docker images --format='{{.Repository}} {{.ID}}' | grep 'postgres' | cut -d' ' -f2` | thertion12/postgres"    }
+	echo "Image id: ${image_id}"
+	sh "sudo -S docker tag ${image_id} thertion12/postgres" 
     }
 	
     stage('Push image') {
