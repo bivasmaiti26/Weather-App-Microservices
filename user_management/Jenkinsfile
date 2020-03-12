@@ -4,11 +4,11 @@ node {
     }
 
     stage('Build image') {
-	//load "./user_management/.env"
-	//echo "${env.POSTGRES_USER}"
+	load "./user_management/.env"
+	echo "${env.POSTGRES_USER}"
 	sh "sudo -s source ./user_management/.env"
 	sh "sudo -S docker network create --driver bridge blitzkrieg-default-network || true"
-	sh "sudo -S SECRET_KEY=SECRET_KEY=E\n-\x9a$\x0c\xd4\"\xa7\xa5\xa6\xa5L\x11c\x1b\xa4%+\xcb+\xca\x8e\x1f docker-compose -f ./user_management/docker-compose.yml build"
+	sh "sudo -S docker-compose -f ./user_management/docker-compose.yml build"
 	sh "sudo -S docker-compose -f ./user_management/docker-compose.yml up -d postgres"
 	sh "sudo -S docker commit postgres"
 	/*image_id = sh (
