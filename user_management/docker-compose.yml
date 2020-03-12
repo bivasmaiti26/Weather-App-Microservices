@@ -25,7 +25,7 @@ services:
       dockerfile: Dockerfile
     image: thertion12/user-management
     environment:
-      - SECRET_KEY=${SECRET_KEY}
+      - SECRET_KEY=${env.SECRET_KEY}
     ports:
       - 6000:6000
 
