@@ -5,7 +5,7 @@ node {
 
     stage('Build image') {
 	load "./user_management/.env"
-	echo "${env.POSTGRES_USER}"
+	echo "$POSTGRES_USER"
 	sh "sudo -s source ./user_management/.env"
 	sh "sudo -S docker network create --driver bridge blitzkrieg-default-network || true"
 	sh "sudo -S docker-compose -f ./user_management/docker-compose.yml build"
