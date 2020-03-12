@@ -8,12 +8,13 @@ node {
         sh "sudo -S docker-compose -f ./user_management/docker-compose.yml build"
 	sh "sudo -S docker-compose -f ./user_management/docker-compose.yml up -d postgres"
 	sh "sudo -S docker commit postgres"
-	image_id = sh (
+	/*image_id = sh (
             script: "sudo -S docker images --format='{{.Repository}} {{.ID}}' | grep 'postgres' | cut -d' ' -f2",
             returnStdout: true
         ).trim()
 	echo "Image id: ${image_id}"
-	sh "sudo -S docker tag ${image_id} thertion12/postgres" 
+	sh "sudo -S docker tag ${image_id} thertion12/postgres" */
+	sh "sudo -S docker tag `docker images --format='{{.Repository}} {{.ID}}' | grep 'postgres' | cut -d' ' -f2` `echo thertion12/postgres`"
     }
 	
     stage('Push image') {
