@@ -1,4 +1,4 @@
-version: "3.7"
+version: "2"
 networks:
     default:
       external:
@@ -10,7 +10,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: api-gateway:1.0
+        image: thertion12/api-gateway
         ports:
             - "8000:8000"
             - "9090:9090"
