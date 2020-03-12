@@ -1,7 +1,7 @@
 module.exports = {
   createTopicAndRun: function() {
     var kafka = require('kafka-node')
-    var client = new kafka.KafkaClient({kafkaHost:"localhost:29092"});
+    var client = new kafka.KafkaClient({kafkaHost:"localhost:9092"});
     try
     {
       var topicsToCreate = [{
@@ -15,7 +15,7 @@ module.exports = {
         try{
           var kafka = require('kafka-node'),
           Consumer = kafka.Consumer,
-          client = new kafka.KafkaClient({kafkaHost:"localhost:29092"}),
+          client = new kafka.KafkaClient({kafkaHost:"localhost:9092"}),
           consumer = new Consumer(
             client,
             [
