@@ -20,16 +20,7 @@ services:
         ports:
             - "9092:9092"
         restart: always
-        
-        environment:
-            KAFKA_ADVERTISED_LISTENERS: ${KAFKA_ADVERTISED_LISTENERS}
-            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: ${KAFKA_LISTENER_SECURITY_PROTOCOL_MAP}
-            KAFKA_INTER_BROKER_LISTENER_NAME: ${KAFKA_INTER_BROKER_LISTENER_NAME}
-            KAFKA_ZOOKEEPER_CONNECT: ${KAFKA_ZOOKEEPER_CONNECT}
-            KAFKA_BROKER_ID: 1
-            KAFKA_LOG4J_LOGGERS: ${KAFKA_LOG4J_LOGGERS}
-            KAFKA_DEFAULT_REPLICATION_FACTOR: 1
-            KAFKA_NUM_PARTITIONS: 3
-            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+        env_file:
+            - .env    
         depends_on:
             - zookeeper
