@@ -14,6 +14,7 @@ node {
         ).trim()
 	 echo "Image id: ${image_id}"
 	// sh "sudo -S docker tag | `sudo -S docker images --format='{{.Repository}} {{.ID}}' | grep 'postgres' | cut -d' ' -f2` | thertion12/postgres"    }
+    }
 	
     stage('Push image') {
 	withCredentials([usernamePassword( credentialsId: 'docker-hub-credentials', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
