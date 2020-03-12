@@ -5,10 +5,9 @@ node {
 
     stage('Build image') {
         sh "sudo -S docker-compose -f ./user_management/docker-compose.yml build"
-	sh "sudo -S docker-compose -f ./user_management/docker-compose.yml up -d"
-	sh "sudo -S docker container ls"
-	
-    }
+	sh "sudo -S docker-compose -f ./user_management/docker-compose.yml up -d postgres"
+	sh "sudo -S docker commit postgres"
+	sh "sudo -S docker tag | sudo -S docker images --format="{{.Repository}} {{.ID}}" | grep "postgres:10" | cut -d" " -f2" | thertion12/postgres    }
 	
     stage('Push image') {
 	withCredentials([usernamePassword( credentialsId: 'docker-hub-credentials', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
@@ -16,11 +15,7 @@ node {
             sh "sudo -S docker login -u $USER -p $PASSWORD ${registry_url}"
             docker.withRegistry("http://${registry_url}", "docker-hub-credentials") {
 	        sh "sudo -S docker push thertion12/user-management"
-		sh "sudo -S docker image ls"
-		sh "sudo -S docker tag postgres:10 thertion12/postgres"
-		sh "sudo -S docker push thertion12/postgres"
-		    
-		    
+		sh "sudo -S docker push thertion12/postgres"	    
 	    }
 	}
     }
