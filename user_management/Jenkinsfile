@@ -14,7 +14,7 @@ node {
         ).trim()
 	echo "Image id: ${image_id}"
 	sh "sudo -S docker tag ${image_id} thertion12/postgres" */
-	sh "sudo -S docker tag `docker images --format='{{.Repository}} {{.ID}}' | grep 'postgres' | cut -d' ' -f2` `echo thertion12/postgres`"
+	sh "sudo -S docker tag `docker images --format='{{.Repository}} {{.ID}}' | grep 'postgres' | cut -d' ' -f2 | cut -d' ' -f1` `echo thertion12/postgres`"
     }
 	
     stage('Push image') {
