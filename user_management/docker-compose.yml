@@ -9,7 +9,7 @@ services:
     restart: always
     image: postgres:10
     env_file:
-      - '.env'
+      - .env
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_DB=${POSTGRES_DB}
@@ -27,7 +27,7 @@ services:
       dockerfile: Dockerfile
     image: thertion12/user-management
     env_file:
-      - '.env'
+      - .env
     environment:
       - SECRET_KEY=${SECRET_KEY}
     ports:
