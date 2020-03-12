@@ -5,6 +5,7 @@ node {
 
     stage('Build image') {
 	sh "sudo -S docker network create --driver bridge blitzkrieg-default-network || true"
+	sh "export KAFKA_ADVERTISED_LISTENERS=LISTENER_DOCKER_INTERNAL://kafka:29092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092"
         sh "sudo -S docker-compose -f ./user_management/docker-compose.yml build"
 	sh "sudo -S docker-compose -f ./user_management/docker-compose.yml up -d postgres"
 	sh "sudo -S docker commit postgres"
@@ -15,7 +16,6 @@ node {
 	echo "Image id: ${image_id}"
 	sh "sudo -S docker tag ${image_id} thertion12/postgres" */
 	    
-	sh "export KAFKA_ADVERTISED_LISTENERS=LISTENER_DOCKER_INTERNAL://kafka:29092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092"
 	sh "sudo -S docker tag `docker images --format='{{.Repository}} {{.ID}}' | grep 'postgres' | head -1 | cut -d' ' -f2` `echo thertion12/postgres`"
     }
 	
