@@ -6,8 +6,8 @@ node {
     stage('Build image') {
 	sh "sudo -s source ./user_management/.env"
 	sh "sudo -S docker network create --driver bridge blitzkrieg-default-network || true"
-	sh "sudo -S POSTGRES_USER=postgres POSTGRES_DB=postgres docker-compose -f ./user_management/docker-compose.yml build"
-	sh "sudo -S POSTGRES_USER=postgres POSTGRES_DB=postgres docker-compose -f ./user_management/docker-compose.yml up -d postgres"
+	sh "sudo -S POSTGRES_USER=${POSTGRES_USER} POSTGRES_DB=${POSTGRES_DB} docker-compose -f ./user_management/docker-compose.yml build"
+	sh "sudo -S POSTGRES_USER=${POSTGRES_USER} POSTGRES_DB=${POSTGRES_DB} docker-compose -f ./user_management/docker-compose.yml up -d postgres"
 	sh "sudo -S docker commit postgres"
 	/*image_id = sh (
             script: "sudo -S docker images --format='{{.Repository}} {{.ID}}' | grep 'postgres' | cut -d' ' -f2",
