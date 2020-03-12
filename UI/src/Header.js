@@ -101,7 +101,7 @@ class Header extends Component {
 
       return axios({
           method: 'post',
-          url: 'http://localhost:6000/login',
+          url: 'http://localhost:8000/login',
           headers: {
             'Access-Control-Allow-Origin': '*'
           },
@@ -144,7 +144,7 @@ class Header extends Component {
 
       return axios({
           method: 'post',
-          url: 'http://localhost:6000/register',
+          url: 'http://localhost:8000/register',
           headers: {
             'Access-Control-Allow-Origin': '*'
           },
