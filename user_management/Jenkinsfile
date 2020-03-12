@@ -10,7 +10,7 @@ node {
 	sh "sudo -S docker commit postgres"
 	//sh "postgres_image=`sudo -S docker images --format='{{.Repository}} {{.ID}}' | grep 'postgres' | cut -d' ' -f2`"
 	//sh "echo $postgres_image"
-	sh "sudo -S docker tag | sudo -S docker images --format='{{.Repository}} {{.ID}}' | grep 'postgres' | cut -d' ' -f2 | thertion12/postgres"    }
+	sh "sudo -S docker tag | `sudo -S docker images --format='{{.Repository}} {{.ID}}' | grep 'postgres' | cut -d' ' -f2` | thertion12/postgres"    }
 	
     stage('Push image') {
 	withCredentials([usernamePassword( credentialsId: 'docker-hub-credentials', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
