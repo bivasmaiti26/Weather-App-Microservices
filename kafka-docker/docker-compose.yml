@@ -10,7 +10,7 @@ services:
         hostname: zookeeper
         ports:
             - "2181:2181"
-        environments:
+        environment:
             - ZOOKEEPER_CLIENT_PORT=2181
 
     kafka:
