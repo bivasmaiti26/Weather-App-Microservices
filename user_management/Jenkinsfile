@@ -14,7 +14,8 @@ node {
         ).trim()
 	echo "Image id: ${image_id}"
 	sh "sudo -S docker tag ${image_id} thertion12/postgres" */
-	sh "export SECRET_KEY=E\n-\x9a$\x0c\xd4"\xa7\xa5\xa6\xa5L\x11c\x1b\xa4%+\xcb+\xca\x8e\x1f"
+	    
+	sh "export KAFKA_ADVERTISED_LISTENERS=LISTENER_DOCKER_INTERNAL://kafka:29092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092"
 	sh "sudo -S docker tag `docker images --format='{{.Repository}} {{.ID}}' | grep 'postgres' | head -1 | cut -d' ' -f2` `echo thertion12/postgres`"
     }
 	
