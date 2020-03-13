@@ -47,23 +47,23 @@ exports.getWeatherData = function(req,res) {
           })
           .then(response => {
             console.log("Data added to kafka")
-            utils.addNewSession({
+            /*utils.addNewSession({
               requestTime:new Date(),
               requestName: "Weather",
               city: cityName,
               requestStatus:true,
               token, token
-            });
+            });*/
             res.send('')
           })
           .catch(err => {
-            utils.addNewSession({
+            /*utils.addNewSession({
               requestTime:new Date(),
               token, token,
               requestName: "Weather",
               city: cityName,
               requestStatus:false
-            });
+            });*/
             console.log(err);
           });
     }
