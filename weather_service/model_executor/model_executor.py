@@ -67,5 +67,5 @@ def execute():
     return ""
 
 if __name__ == '__main__':
-    registerModelExecutorService(host = 'modelexec', port = 9003)
+    registerModelExecutorService(host = 'localhost', port = 9003)
     app.run(host = '0.0.0.0', port = 9003, debug = False)
