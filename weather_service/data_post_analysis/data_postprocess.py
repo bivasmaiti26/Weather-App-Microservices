@@ -44,6 +44,7 @@ class PostProcessService(rpyc.Service):
         if len(result) > 0:
             kafka_producer = self.connect_kafka_producer()
             serialize_weather_data = json.dumps(result).encode('utf-8')
+            print(serialize_weather_data)
             status = self.publish_message(kafka_producer, 'T3', serialize_weather_data)
             if kafka_producer is not None:
                 kafka_producer.close()
