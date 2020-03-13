@@ -37,6 +37,8 @@ exports.login = function(req, res) {
 
     function LoginAPICall(url, username, password, res)
     {
+        console.log(url);
+        console.log(res);
         return axios({
             method: "post",
             url: url,
@@ -58,6 +60,7 @@ exports.login = function(req, res) {
             });
           })
           .catch(err => {
+            console.log(err);
             res.send(err.response.data);
             utils.addNewSession({
               requestTime:new Date(),
