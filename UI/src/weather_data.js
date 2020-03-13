@@ -16,7 +16,7 @@ class WeatherData extends Component {
 
   componentDidMount()
   {
-    var myWebSocket = new WebSocket("ws://0.0.0.0:9090");
+    var myWebSocket = new WebSocket("ws://149.165.170.68:30010");
             
         //this.setState({weatherData:evt.data})
     myWebSocket.onmessage = this.setdata;
