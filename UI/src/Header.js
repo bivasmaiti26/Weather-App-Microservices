@@ -101,7 +101,7 @@ class Header extends Component {
 
       return axios({
           method: 'post',
-          url: 'http://localhost:8000/login',
+          url: 'http://149.165.170.68:30008/login',
           headers: {
             'Access-Control-Allow-Origin': '*'
           },
@@ -144,7 +144,7 @@ class Header extends Component {
 
       return axios({
           method: 'post',
-          url: 'http://localhost:8000/register',
+          url: 'http://149.165.170.68:30008/register',
           headers: {
             'Access-Control-Allow-Origin': '*'
           },
@@ -166,7 +166,7 @@ class Header extends Component {
     sendEmail(user) {
       return axios({
           method: 'post',
-          url: 'http://localhost:8080/welcomeEmail',
+          url: 'http://149.165.170.68:30008/welcomeEmail',
           headers: {
             'Access-Control-Allow-Origin': '*'
           },
