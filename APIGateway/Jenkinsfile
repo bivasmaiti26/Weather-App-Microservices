@@ -5,7 +5,7 @@ node {
 
     stage('Build image') {
     	withCredentials([usernamePassword( credentialsId: 'jenkins-creds', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
-	    sh "sudo -S docker-compose -f ./APIGateway/docker-compose.yml build"
+	    sh "docker-compose -f ./APIGateway/docker-compose.yml build"
 	}
     }
 	
