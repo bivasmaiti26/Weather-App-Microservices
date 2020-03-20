@@ -22,7 +22,7 @@ node {
 	    def registry_url = "registry.hub.docker.com/"
             sh "cd /home/ubuntu/"
 	    sh "export KUBECONFIG=/home/ubuntu/config"
-	    sh "kubectl apply -f /home/ubuntu/deployment.yml --validate=false"
+	    sh "sudo -S kubectl apply -f /home/ubuntu/deployment.yml --validate=false"
 	
     }
 }
