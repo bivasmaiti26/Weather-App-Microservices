@@ -255,7 +255,7 @@ class Header extends Component {
                   <Modal style={{zIndex:50000}} show={this.state.showModal2} onHide={this.changeState2}>
                     <Form style = {{padding:'20px'}}>
                           <Form.Group controlId="Header">
-                              <h1 style={{textAlign:"center"}}>Sign Up</h1>
+                              <h1 style={{textAlign:"center"}}>Sign Up Here</h1>
                           </Form.Group>
                           
                           <Form.Row>
