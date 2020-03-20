@@ -21,8 +21,8 @@ node {
     stage('Deploy image') {
     	withCredentials([usernamePassword( credentialsId: 'jenkins-creds', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
 	    sh "cd /home/ubuntu/"
-	    sh "export KUBECONFIG=/home/ubuntu/config"
-	    sh "kubectl apply -f /home/ubuntu/deployment.yml --validate=false"
+	    
+	    sh "sh deploy.sh"
 	}
 	
     }
