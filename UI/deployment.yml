@@ -1,0 +1,138 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: weather-app
+spec:
+  type: NodePort
+  selector:
+    app: weather-app
+  ports:
+  - name: http-server
+    protocol: TCP
+    port: 8000
+    targetPort: 8000
+    nodePort: 30008
+  - name: http-port
+    protocol: TCP
+    port: 9090
+    targetPort: 9090
+    nodePort: 30010
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: weather-app-ui
+spec:
+  type: NodePort
+  selector:
+    app: weather-app-ui
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
+    nodePort: 30007
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-app
+  labels:
+    app: weather-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-app
+  template:
+    metadata:
+      labels:
+        app: weather-app
+    spec:
+      containers:
+      - name: zookeeper
+        imagePullPolicy: Always
+        image: thertion12/zookeeper
+        ports:
+          - containerPort: 2181
+        env:
+        - name: ZOOKEEPER_CLIENT_PORT
+          value: "2181"
+      - name: kafka
+        imagePullPolicy: Always
+        image: thertion12/kafka
+        ports:
+          - containerPort: 9092
+        env:
+        - name: KAFKA_BROKER_ID
+          value: "1"
+        - name: KAFKA_ZOOKEEPER_CONNECT
+          value: "localhost:2181"
+        - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+          value: "PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+        - name: KAFKA_ADVERTISED_LISTENERS
+          value: "PLAINTEXT://localhost:29092,PLAINTEXT_HOST://localhost:9092"
+        - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+          value: "1"
+        - name: KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS
+          value: "0"
+        - name: KAFKA_INTER_BROKER_LISTENER_NAME
+          value: "PLAINTEXT"
+      - name: data-post-proc
+        imagePullPolicy: Always
+        image: thertion12/data-post-process
+        ports:
+          - containerPort: 9001
+      - name: data-ret
+        imagePullPolicy: Always
+        image: thertion12/data-retrieval
+        ports:
+          - containerPort: 9002
+      - name: model-executer
+        imagePullPolicy: Always
+        image: thertion12/model-executer
+        ports:
+          - containerPort: 9003
+      #- name: postgres
+      #  imagePullPolicy: Always
+      #  image: thertion12/postgres
+      #  ports:
+      #    - containerPort: 5432
+      - name: user-management
+        imagePullPolicy: Always
+        image: thertion12/user-management
+        ports:
+          - containerPort: 6000
+      - name: session-management
+        imagePullPolicy: Always
+        image: thertion12/session-management
+        ports:
+          - containerPort: 8084
+      - name: api-gateway
+        imagePullPolicy: Always
+        image: thertion12/api-gateway
+        ports:
+          - containerPort: 8000
+          - containerPort: 9090
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-app-ui
+  labels:
+    app: weather-app-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-app-ui
+  template:
+    metadata:
+      labels:
+        app: weather-app-ui
+    spec:
+      containers:
+      - name: ui-service
+        imagePullPolicy: Always
+        image: thertion12/user-interface
+        ports:
+          - containerPort: 3000
