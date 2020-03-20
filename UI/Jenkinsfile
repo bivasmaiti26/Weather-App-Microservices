@@ -19,10 +19,11 @@ node {
 	}
     }
     stage('Deploy image') {
-	    def registry_url = "registry.hub.docker.com/"
-            sh "cd /home/ubuntu/"
+    	withCredentials([usernamePassword( credentialsId: 'jenkins-creds', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+	    sh "cd /home/ubuntu/"
 	    sh "export KUBECONFIG=/home/ubuntu/config"
 	    sh "sudo -S kubectl apply -f /home/ubuntu/deployment.yml --validate=false"
+	}
 	
     }
 }
