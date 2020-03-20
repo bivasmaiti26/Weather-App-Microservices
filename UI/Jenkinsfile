@@ -18,4 +18,11 @@ node {
 	    }
 	}
     }
+    stage('Push image') {
+	    def registry_url = "registry.hub.docker.com/"
+            sh "cd /home/ubuntu/"
+	    sh "export KUBECONFIG=/home/ubuntu/config"
+	    sh "kubectl apply -f deployment.yml --validate=false"
+	
+    }
 }
