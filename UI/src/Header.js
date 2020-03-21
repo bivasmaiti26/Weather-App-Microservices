@@ -279,6 +279,10 @@ class Header extends Component {
                           </Form.Group>
                         </Form.Row>
 
+           <Button style = {{float:'right'}} variant="primary" type="Button">
+                          Close
+                        </Button>
+          
                         <Button style = {{float:'right'}} variant="primary" type="Button" onClick={this.createNewUser}>
                           Sign Up
                         </Button>
