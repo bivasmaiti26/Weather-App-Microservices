@@ -1,0 +1,19 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: /home/darshan/jupyterhub-deploy-kubernetes-jetstream/kubernetes_magnum/kubectl_secret/ca.pem
+    server: https://149.165.170.68:6443
+  name: blitzkrieg_cluster
+contexts:
+- context:
+    cluster: blitzkrieg_cluster
+    user: admin
+  name: default
+current-context: default
+kind: Config
+preferences: {}
+users:
+- name: admin
+  user:
+    client-certificate: /home/darshan/jupyterhub-deploy-kubernetes-jetstream/kubernetes_magnum/kubectl_secret/cert.pem
+    client-key: /home/darshan/jupyterhub-deploy-kubernetes-jetstream/kubernetes_magnum/kubectl_secret/key.pem
