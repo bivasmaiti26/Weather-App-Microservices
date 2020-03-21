@@ -92,11 +92,11 @@ spec:
         image: thertion12/model-executer
         ports:
           - containerPort: 9003
-      #- name: postgres
-      #  imagePullPolicy: Always
-      #  image: thertion12/postgres
-      #  ports:
-      #    - containerPort: 5432
+      - name: postgres
+        imagePullPolicy: Always
+        image: thertion12/postgres
+        ports:
+          - containerPort: 5432
       - name: user-management
         imagePullPolicy: Always
         image: thertion12/user-management
