@@ -1,0 +1,51 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1584759276285,66,Login,200,OK,Users 3-1,text,true,,294,259,4,11,http://149.165.170.68:30008/login/,66,0,9
+1584759276309,60,Login,200,OK,Users 3-2,text,true,,294,259,4,12,http://149.165.170.68:30008/login/,59,0,10
+1584759276330,71,Login,200,OK,Users 3-3,text,true,,294,259,4,11,http://149.165.170.68:30008/login/,71,0,11
+1584759276348,64,Login,200,OK,Users 3-4,text,true,,294,259,4,10,http://149.165.170.68:30008/login/,64,0,20
+1584759276367,56,Login,200,OK,Users 3-5,text,true,,294,259,3,9,http://149.165.170.68:30008/login/,56,0,10
+1584759276391,44,Login,200,OK,Users 3-6,text,true,,294,259,3,8,http://149.165.170.68:30008/login/,44,0,10
+1584759276410,46,Login,200,OK,Users 3-7,text,true,,294,259,3,9,http://149.165.170.68:30008/login/,46,0,10
+1584759276452,42,Login,200,OK,Users 3-9,text,true,,294,259,4,10,http://149.165.170.68:30008/login/,42,0,9
+1584759276469,43,Login,200,OK,Users 3-10,text,true,,294,259,4,10,http://149.165.170.68:30008/login/,43,0,11
+1584759276488,43,Login,200,OK,Users 3-11,text,true,,294,259,4,11,http://149.165.170.68:30008/login/,43,0,10
+1584759276508,36,Login,200,OK,Users 3-12,text,true,,294,259,3,10,http://149.165.170.68:30008/login/,36,0,10
+1584759276431,121,Login,200,OK,Users 3-8,text,true,,294,259,3,9,http://149.165.170.68:30008/login/,121,0,12
+1584759276526,44,Login,200,OK,Users 3-13,text,true,,294,259,3,9,http://149.165.170.68:30008/login/,44,0,11
+1584759276569,38,Login,200,OK,Users 3-15,text,true,,294,259,3,8,http://149.165.170.68:30008/login/,38,0,11
+1584759276551,87,Login,200,OK,Users 3-14,text,true,,294,259,4,10,http://149.165.170.68:30008/login/,86,0,11
+1584759276649,50,Login,200,OK,Users 3-19,text,true,,294,259,6,13,http://149.165.170.68:30008/login/,50,0,11
+1584759276629,75,Login,200,OK,Users 3-18,text,true,,294,259,5,12,http://149.165.170.68:30008/login/,75,0,12
+1584759276589,115,Login,200,OK,Users 3-16,text,true,,294,259,4,11,http://149.165.170.68:30008/login/,115,0,12
+1584759276671,146,Login,200,OK,Users 3-20,text,true,,294,259,9,15,http://149.165.170.68:30008/login/,146,0,13
+1584759276827,57,Login,200,OK,Users 3-28,text,true,,294,259,11,17,http://149.165.170.68:30008/login/,57,0,11
+1584759276848,59,Login,200,OK,Users 3-29,text,true,,294,259,11,16,http://149.165.170.68:30008/login/,59,0,11
+1584759276686,243,Login,200,OK,Users 3-21,text,true,,294,259,12,17,http://149.165.170.68:30008/login/,243,0,13
+1584759276711,221,Login,200,OK,Users 3-22,text,true,,294,259,11,17,http://149.165.170.68:30008/login/,221,0,11
+1584759276950,41,Login,200,OK,Users 3-34,text,true,,294,259,13,19,http://149.165.170.68:30008/login/,41,0,11
+1584759276752,260,Login,200,OK,Users 3-24,text,true,,294,259,13,19,http://149.165.170.68:30008/login/,260,0,12
+1584759276730,287,Login,200,OK,Users 3-23,text,true,,294,259,12,17,http://149.165.170.68:30008/login/,287,0,10
+1584759276986,66,Login,200,OK,Users 3-36,text,true,,294,259,12,18,http://149.165.170.68:30008/login/,66,0,11
+1584759277054,61,Login,200,OK,Users 3-39,text,true,,294,259,15,20,http://149.165.170.68:30008/login/,61,0,10
+1584759277091,48,Login,200,OK,Users 3-41,text,true,,294,259,15,21,http://149.165.170.68:30008/login/,48,0,11
+1584759276790,357,Login,200,OK,Users 3-26,text,true,,294,259,14,20,http://149.165.170.68:30008/login/,357,0,12
+1584759276768,384,Login,200,OK,Users 3-25,text,true,,294,259,14,21,http://149.165.170.68:30008/login/,384,0,14
+1584759276869,286,Login,200,OK,Users 3-30,text,true,,294,259,13,20,http://149.165.170.68:30008/login/,286,0,11
+1584759276908,249,Login,200,OK,Users 3-32,text,true,,294,259,12,18,http://149.165.170.68:30008/login/,249,0,12
+1584759277010,153,Login,200,OK,Users 3-37,text,true,,294,259,11,17,http://149.165.170.68:30008/login/,153,0,11
+1584759276968,202,Login,200,OK,Users 3-35,text,true,,294,259,11,16,http://149.165.170.68:30008/login/,202,0,9
+1584759277189,43,Login,200,OK,Users 3-46,text,true,,294,259,13,19,http://149.165.170.68:30008/login/,43,0,11
+1584759277248,44,Login,200,OK,Users 3-49,text,true,,294,259,14,18,http://149.165.170.68:30008/login/,44,0,10
+1584759277031,58440,Login,Non HTTP response code: java.net.SocketException,Non HTTP response message: Socket closed,Users 3-38,text,false,,2562,0,13,14,http://149.165.170.68:30008/login/,0,0,10
+1584759277071,58400,Login,Non HTTP response code: java.net.SocketException,Non HTTP response message: Socket closed,Users 3-40,text,false,,2562,0,13,14,http://149.165.170.68:30008/login/,0,0,12
+1584759277130,58341,Login,Non HTTP response code: java.net.SocketException,Non HTTP response message: Socket closed,Users 3-43,text,false,,2562,0,13,14,http://149.165.170.68:30008/login/,0,0,11
+1584759277115,58356,Login,Non HTTP response code: java.net.SocketException,Non HTTP response message: Socket closed,Users 3-42,text,false,,2562,0,10,10,http://149.165.170.68:30008/login/,0,0,11
+1584759277270,58201,Login,Non HTTP response code: java.net.SocketException,Non HTTP response message: Socket closed,Users 3-50,text,false,,2562,0,9,9,http://149.165.170.68:30008/login/,0,0,11
+1584759277207,58264,Login,Non HTTP response code: java.net.SocketException,Non HTTP response message: Socket closed,Users 3-47,text,false,,2562,0,9,9,http://149.165.170.68:30008/login/,0,0,11
+1584759277230,58242,Login,Non HTTP response code: java.net.SocketException,Non HTTP response message: Socket closed,Users 3-48,text,false,,2562,0,9,9,http://149.165.170.68:30008/login/,0,0,10
+1584759277169,58303,Login,Non HTTP response code: java.net.SocketException,Non HTTP response message: Socket closed,Users 3-45,text,false,,2562,0,6,6,http://149.165.170.68:30008/login/,0,0,10
+1584759276889,58583,Login,Non HTTP response code: java.net.SocketException,Non HTTP response message: Socket closed,Users 3-31,text,false,,2562,0,5,5,http://149.165.170.68:30008/login/,0,0,11
+1584759276927,58545,Login,Non HTTP response code: java.net.SocketException,Non HTTP response message: Socket closed,Users 3-33,text,false,,2562,0,4,4,http://149.165.170.68:30008/login/,0,0,11
+1584759276810,58662,Login,Non HTTP response code: java.net.SocketException,Non HTTP response message: Socket closed,Users 3-27,text,false,,2562,0,4,4,http://149.165.170.68:30008/login/,0,0,12
+1584759277150,58322,Login,Non HTTP response code: java.net.SocketException,Non HTTP response message: Socket closed,Users 3-44,text,false,,2562,0,2,2,http://149.165.170.68:30008/login/,0,0,12
+1584759276611,58861,Login,Non HTTP response code: java.net.SocketException,Non HTTP response message: Socket closed,Users 3-17,text,false,,2562,0,1,1,http://149.165.170.68:30008/login/,0,0,13
