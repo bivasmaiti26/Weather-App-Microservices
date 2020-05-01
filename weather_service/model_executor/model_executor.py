@@ -12,13 +12,13 @@ app.config['MONGO_URI'] = 'mongodb+srv://weather_user:weather@cluster0-4xpye.mon
 
 mongo = PyMongo(app)
 
-post_processor_url = 'localhost'
+post_processor_url = 'data-post-service'
 post_processor_port = 9001
 rpyc.core.protocol.DEFAULT_CONFIG['sync_request_timeout'] = None
 post_processor = rpyc.connect(post_processor_url, post_processor_port,
                               config=rpyc.core.protocol.DEFAULT_CONFIG).root
 
-data_retriever_url = 'localhost'
+data_retriever_url = 'data-ret'
 data_retriever_port = 9002
 rpyc.core.protocol.DEFAULT_CONFIG['sync_request_timeout'] = None
 data_retriever = rpyc.connect(data_retriever_url, data_retriever_port,
@@ -26,7 +26,7 @@ data_retriever = rpyc.connect(data_retriever_url, data_retriever_port,
 
 def registerModelExecutorService(host, port):
     try:
-        zk = KazooClient(hosts = 'localhost', read_only = True)
+        zk = KazooClient(hosts = 'zookeeper1', read_only = True)
         zk.start()
         path = '/WeatherData'
         data = json.dumps({'host': host, 'port': port}).encode('utf-8')
@@ -67,5 +67,5 @@ def execute():
     return ""
 
 if __name__ == '__main__':
-    registerModelExecutorService(host = 'localhost', port = 9003)
+    registerModelExecutorService(host = 'model-executer', port = 9003)
     app.run(host = '0.0.0.0', port = 9003, debug = False)
