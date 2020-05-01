@@ -20,7 +20,7 @@ class PostProcessService(rpyc.Service):
     def connect_kafka_producer(self):
         _producer = None
         try:
-            _producer = KafkaProducer(bootstrap_servers=['localhost:9092'], api_version=(0, 10))
+            _producer = KafkaProducer(bootstrap_servers=['kafka:9092'], api_version=(0, 10))
         except Exception as ex:
             print('Exception while connecting Kafka')
             print(str(ex))
