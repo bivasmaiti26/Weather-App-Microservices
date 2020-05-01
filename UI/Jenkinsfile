@@ -18,10 +18,5 @@ node {
 	    }
 	}
     }
-    stage('Deploy image') {
-    	withCredentials([usernamePassword( credentialsId: 'jenkins-creds', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
-	    sh "sh /home/ubuntu/deploy.sh"
-	}
-	
-    }
+    
 }
