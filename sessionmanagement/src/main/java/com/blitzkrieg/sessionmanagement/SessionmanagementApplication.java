@@ -25,16 +25,16 @@ public class SessionmanagementApplication {
 		try {
 			zoo = new ZookeeperHelper();
 			zk = zoo.connect("localhost");
-			byte[] data = "{\"host\":\"localhost\", \"port\":\"8084\"}".getBytes();
-			Stat stat = zoo.znode_exists(zk,"/session_management"); // Stat checks the path of the znode
+			byte[] data = "{\"host\":\"user-management\", \"port\":\"8084\"}".getBytes();
+			Stat stat = zoo.znode_exists(zk,"/session-management"); // Stat checks the path of the znode
 
 			if(stat != null) {
 				System.out.println("Node exists and the node version is " + stat.getVersion());
-				zk.setData("/session_management", data, zk.exists("/session_management",true).getVersion());
+				zk.setData("/session-management", data, zk.exists("/session-management",true).getVersion());
 
 			} else {
 				System.out.println("Creating new Node session_management");
-				zoo.create(zk,"/session_management",data);
+				zoo.create(zk,"/session-management",data);
 			}
 			 // Create the data to the specified path
 			zoo.close();
