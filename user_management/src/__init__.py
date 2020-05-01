@@ -19,7 +19,7 @@ if not database_exists(db_engine.url):
 
 def registerUserManagementService(host, port):
     try:
-        zk = KazooClient(hosts = 'localhost', read_only = True)
+        zk = KazooClient(hosts = 'zookeeper1', read_only = True)
         zk.start()
         path = '/user_management'
         data = json.dumps({'host': host, 'port': port}).encode('utf-8')
@@ -52,5 +52,5 @@ app.register_blueprint(user_details_blueprint)
 app.register_blueprint(logout_blueprint)
 
 if __name__ == '__main__':
-    registerUserManagementService(host = "localhost", port = constant.PORT)
+    registerUserManagementService(host = "user-management", port = constant.PORT)
     app.run(host = constant.HOST, port = constant.PORT, debug = False)
