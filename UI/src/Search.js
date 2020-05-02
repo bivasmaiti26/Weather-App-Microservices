@@ -17,7 +17,7 @@ class Search extends Component {
       console.log(suggestion)
     return axios({
         method: "post",
-        url: "http://149.165.170.68:30038/getWeatherData",
+        url: "http://149.165.171.44:30038/getWeatherData",
         headers: { "Access-Control-Allow-Origin": "*" ,Authorization: "Bearer " + localStorage.getItem("auth_token")},
         data:suggestion
       })
