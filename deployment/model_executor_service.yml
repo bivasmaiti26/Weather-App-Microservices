@@ -1,11 +1,11 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: model-executor
+  name: model-executer
 spec:
   type: ClusterIP
   selector:
-    app:  model
+    app:  model-executer
   ports:
   - protocol: TCP
     port: 9003
