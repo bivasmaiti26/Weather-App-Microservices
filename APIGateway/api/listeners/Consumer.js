@@ -27,8 +27,8 @@ module.exports = {
           );
           consumer.on('message', function (message) {
             // console.log(message);
-            console.log(message);
-            console.log('here');
+            //console.log(message);
+            console.log('got message from kafka');
             wss.clients.forEach(function each(client) {
                 client.send(message.value);
             });
