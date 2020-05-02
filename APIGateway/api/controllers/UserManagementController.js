@@ -52,22 +52,24 @@ exports.login = function(req, res) {
           })
           .then(response => {
             res.send(response.data);
+            /*
             utils.addNewSession({
               requestTime:new Date(),
               userName: username,
               requestName: "Login",
               requestStatus:true
-            });
+            });*/
           })
           .catch(err => {
             console.log(err);
             res.send(err.response.data);
+              /*
             utils.addNewSession({
               requestTime:new Date(),
               userName: username,
               requestName: "Login",
               requestStatus:false
-            });
+            });*/
           });
     }
 };
