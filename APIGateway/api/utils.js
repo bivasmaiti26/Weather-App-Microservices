@@ -17,8 +17,8 @@ module.exports = {
 addNewSession: function(sessionToSave) {
     var zookeeper = require('node-zookeeper-client');
     var host,port,url;
-    var client = zookeeper.createClient('localhost:2181');
-    var path = '/session_management';
+    var client = zookeeper.createClient('zookeeper1:2181');
+    var path = '/session-management';
     console.log(sessionToSave);
     client.getData(
         path,
