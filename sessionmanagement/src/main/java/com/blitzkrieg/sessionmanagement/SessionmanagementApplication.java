@@ -25,7 +25,7 @@ public class SessionmanagementApplication {
 		try {
 			zoo = new ZookeeperHelper();
 			zk = zoo.connect("zookeeper1");
-			byte[] data = "{\"host\":\"user-management\", \"port\":\"8084\"}".getBytes();
+			byte[] data = "{\"host\":\"session-management\", \"port\":\"8084\"}".getBytes();
 			Stat stat = zoo.znode_exists(zk,"/session-management"); // Stat checks the path of the znode
 
 			if(stat != null) {
