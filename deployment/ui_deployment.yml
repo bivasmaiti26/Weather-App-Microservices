@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: ui-deployment
   labels:
-    app: weather-app-ui
+    app: ui-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: weather-app-ui
+      app: ui-service
   template:
     metadata:
       labels:
-        app: weather-app-ui
+        app: ui-service
     spec:
       containers:
       - name: ui-service
