@@ -18,7 +18,7 @@ exports.login = function(req, res) {
         },
         function (error, data, stat) {
             if (error) {
-                console.log(error.stack);
+                //console.log(error.stack);
                 return;
             }
             zookeeper_data = JSON.parse(data.toString('utf8'))
@@ -38,7 +38,7 @@ exports.login = function(req, res) {
     function LoginAPICall(url, username, password, res)
     {
         console.log(url);
-        console.log(res);
+        //console.log(res);
         return axios({
             method: "post",
             url: url,
@@ -61,7 +61,7 @@ exports.login = function(req, res) {
             });*/
           })
           .catch(err => {
-            console.log(err);
+            //console.log(err);
             res.send(err.response.data);
               /*
             utils.addNewSession({
@@ -90,7 +90,7 @@ exports.register = function(req, res) {
         },
         function (error, data, stat) {
             if (error) {
-                console.log(error.stack);
+                //console.log(error.stack);
                 return;
             }
             zookeeper_data = JSON.parse(data.toString('utf8'))
@@ -149,7 +149,7 @@ exports.user_details = function(req, res) {
     client.getData(
         path,
         function (event) {
-            console.log('Got event: %s.', event);
+            //console.log('Got event: %s.', event);
         },
         function (error, data, stat) {
             if (error) {
@@ -186,11 +186,11 @@ exports.user_details = function(req, res) {
             }
           })
           .then(response => {
-            console.log("In user_details controller call, response: " + response.data);
+            //console.log("In user_details controller call, response: " + response.data);
             res.send(response.data);
           })
           .catch(err => {
-            console.log("In user_details controller call, err: " + err);
+            //console.log("In user_details controller call, err: " + err);
             res.send({ err });
           });
     }
