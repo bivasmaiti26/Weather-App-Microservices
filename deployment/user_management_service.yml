@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: user-management
+spec:
+  type: ClusterIP
+  selector:
+    app:  user-management
+  ports:
+  - protocol: TCP
+    port: 6000
+    targetPort: 6000

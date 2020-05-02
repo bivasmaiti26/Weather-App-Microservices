@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: session-management-deployment
+  labels:
+    app: session-management
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: session-management
+  template:
+    metadata:
+      labels:
+        app: session-management
+    spec:
+      containers:
+      - name: session-management
+        imagePullPolicy: Always
+        image: thertion12/session-management
+        ports:
+          - containerPort: 8084

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: model-executor-deployment
+  labels:
+    app: model-executer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: model-executer
+  template:
+    metadata:
+      labels:
+        app: model-executer
+    spec:
+      containers:
+      - name: model-executer
+        imagePullPolicy: Always
+        image: thertion12/model-executer
+        ports:
+          - containerPort: 9003
+    

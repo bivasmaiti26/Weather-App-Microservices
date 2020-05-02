@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: session-management
+spec:
+  type: ClusterIP
+  selector:
+    app:  session-management
+  ports:
+  - protocol: TCP
+    port: 8084
+    targetPort: 8084

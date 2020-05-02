@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui-deployment
+  labels:
+    app: weather-app-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-app-ui
+  template:
+    metadata:
+      labels:
+        app: weather-app-ui
+    spec:
+      containers:
+      - name: ui-service
+        imagePullPolicy: Always
+        image: thertion12/user-interface
+        ports:
+          - containerPort: 3000

@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: model-executor
+spec:
+  type: ClusterIP
+  selector:
+    app:  model
+  ports:
+  - protocol: TCP
+    port: 9003
+    targetPort: 9003
