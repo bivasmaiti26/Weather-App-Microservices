@@ -12,9 +12,6 @@ class Search extends Component {
   }
 
   sendCityData(suggestion) {
-    console.log('hi');
-    debugger;
-      console.log(suggestion)
     return axios({
         method: "post",
         url: "http://149.165.171.44:30038/getWeatherData",
