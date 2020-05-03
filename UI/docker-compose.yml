@@ -10,7 +10,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: thertion12/user-interface:user-detail
+        image: thertion12/user-interface
         ports:
             - "3000:3000"
         
