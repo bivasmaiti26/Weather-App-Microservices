@@ -26,7 +26,7 @@ class userprofile extends Component {
       email: localStorage.getItem("currentUser")
     };
     axios
-      .get("http://localhost:8000/user_details", {
+      .get("http://149.165.171.44:30038/user_details", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("auth_token")
         },
