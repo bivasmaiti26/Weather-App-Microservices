@@ -1,0 +1,55 @@
+kind: Ingress
+metadata:
+  name: linkerd
+  namespace: linkerd
+  annotations:
+    kubernetes.io/ingress.class: "linkerd"
+spec:
+  rules:
+  - host: linkerd.uacf.io
+    http:
+      paths:
+      - backend:
+          serviceName: linkerd
+          servicePort: 9990
+```
+kind: Service
+apiVersion: v1
+metadata:
+  name: linkerd
+  namespace: linkerd
+  labels:
+    app: l5d
+spec:
+  selector:
+    app: l5d
+  ports:
+  - name: admin
+    port: 9990
+    nodePort: 31090
+  - name: grpc
+    port: 8080
+    nodePort: 31080
+  - name: http
+    port: 80
+    nodePort: 31081
+  type: NodePort
+```
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: linkerd
+  namespace: monitoring
+  labels:
+    k8s-app: linkerd
+    app: linkerd
+spec:
+  selector:
+    matchLabels:
+      app: linkerd
+  namespaceSelector:
+    matchNames:
+    - linkerd
+  endpoints:
+    - targetPort: 9990
+      path: /admin/metrics/prometheus```
