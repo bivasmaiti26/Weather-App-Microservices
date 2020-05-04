@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: model-executor-deployment
+  name: model-executor-deployment-v1
   labels:
     app: model-executer
 spec:
@@ -20,4 +20,14 @@ spec:
         image: thertion12/model-executer
         ports:
           - containerPort: 9003
-    
+      - name: data-post-proc
+        imagePullPolicy: Always
+        image: thertion12/data-post-process
+        ports:
+          - containerPort: 9001
+      - name: data-ret
+        imagePullPolicy: Always
+        image: thertion12/data-retrieval
+        ports:
+          - containerPort: 9002
+
