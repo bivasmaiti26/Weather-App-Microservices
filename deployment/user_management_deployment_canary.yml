@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-management-deployment-v1
+  labels:
+    app: user-management
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-management
+  template:
+    metadata:
+      labels:
+        app: user-management
+        version: first
+    spec:
+      containers:
+      - name: postgres
+        imagePullPolicy: Always
+        image: thertion12/postgres
+        ports:
+          - containerPort: 5432
+      - name: user-management
+        imagePullPolicy: Always
+        image: thertion12/user-management
+        ports:
+          - containerPort: 6000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-management-deployment-v2
+  labels:
+    app: user-management
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-management
+  template:
+    metadata:
+      labels:
+        app: user-management
+        version: second
+    spec:
+      containers:
+      - name: postgres
+        imagePullPolicy: Always
+        image: thertion12/postgres
+        ports:
+          - containerPort: 5432
+      - name: user-management
+        imagePullPolicy: Always
+        image: thertion12/user-management
+        ports:
+          - containerPort: 6000
