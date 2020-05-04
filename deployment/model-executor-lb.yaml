@@ -1,0 +1,28 @@
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: model-executor-vs
+  namespace: default
+spec:
+  hosts:
+    - model-executer.default.svc.cluster.local 
+  http:
+    - route:
+        - destination:
+            host: model-executer.default.svc.cluster.local
+            subset: model-executor-lb-subset
+---
+kind: DestinationRule       # Defining which pods should be part of each subset
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: model-executor-dr
+  namespace: default
+spec:
+  host: model-executer
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+  subsets:
+    - labels:   # SELECTOR.
+        app: model-executer
+      name: model-executor-lb-subset

@@ -1,0 +1,34 @@
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: user-management-vs
+  namespace: default
+spec:
+  hosts:
+    - user-management.default.svc.cluster.local  # The Service DNS (ie the regular K8S Service) name that we're applying routing rules to.
+  http:
+    - route:
+        - destination:
+            host: user-management.default.svc.cluster.local # The Target DNS name
+            subset: first  # The name defined in the DestinationRule
+          weight: 70
+        - destination:
+            host: user-management.default.svc.cluster.local # The Target DNS name
+            subset: second  # The name defined in the DestinationRule
+          weight: 30
+---
+kind: DestinationRule       # Defining which pods should be part of each subset
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: user-management-dr
+  namespace: default
+spec:
+  host: user-management
+  subsets:
+    - labels:   # SELECTOR.
+        version: first # find pods with label "safe"
+      name: first
+    - labels:
+        version: second
+      name: second
+
