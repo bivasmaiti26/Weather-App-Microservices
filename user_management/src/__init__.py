@@ -19,7 +19,7 @@ if not database_exists(db_engine.url):
 
 def registerUserManagementService(host, port):
     try:
-        zk = KazooClient(hosts = 'zookeeper1', read_only = True)
+        zk = KazooClient(hosts = 'zookeeper', read_only = True)
         zk.start()
         path = '/user_management'
         data = json.dumps({'host': host, 'port': port}).encode('utf-8')

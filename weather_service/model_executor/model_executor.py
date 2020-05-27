@@ -13,14 +13,14 @@ app.config['MONGO_URI'] = 'mongodb+srv://weather_user:weather@cluster0-4xpye.mon
 mongo = PyMongo(app)
 
 #post_processor_url = 'data-post-service'
-post_processor_url = 'localhost'
+post_processor_url = 'datapost'
 post_processor_port = 9001
 rpyc.core.protocol.DEFAULT_CONFIG['sync_request_timeout'] = None
 post_processor = rpyc.connect(post_processor_url, post_processor_port,
                               config=rpyc.core.protocol.DEFAULT_CONFIG).root
 
 #data_retriever_url = 'data-ret'
-data_retriever_url = 'localhost'
+data_retriever_url = 'dataret'
 data_retriever_port = 9002
 rpyc.core.protocol.DEFAULT_CONFIG['sync_request_timeout'] = None
 data_retriever = rpyc.connect(data_retriever_url, data_retriever_port,
@@ -28,7 +28,7 @@ data_retriever = rpyc.connect(data_retriever_url, data_retriever_port,
 
 def registerModelExecutorService(host, port):
     try:
-        zk = KazooClient(hosts = 'zookeeper1', read_only = True)
+        zk = KazooClient(hosts = 'zookeeper', read_only = True)
         zk.start()
         path = '/WeatherData'
         data = json.dumps({'host': host, 'port': port}).encode('utf-8')
@@ -45,13 +45,14 @@ def execute():
     params = request.args.to_dict()
     lat = params['lat']
     long = params['long']
+    token = params['token']
     address_key = 'lat:' + str(lat) + ' long:' + str(long)
     city_url = mongo.db.city.find_one({'address': address_key})
 
     if city_url:
         model_url = city_url["url"]
         weather_data = requests.get(model_url).content
-        processed = rpyc.async_(post_processor.process)(weather_data)
+        processed = rpyc.async_(post_processor.process)(weather_data, token)
 
         while not processed.ready:
             continue
@@ -62,7 +63,7 @@ def execute():
         print('url', url)
         mongo.db.city.insert_one({'address': address_key, 'url':url})
         weather_data = requests.get(url).content
-        processed = rpyc.async_(post_processor.process)(weather_data)
+        processed = rpyc.async_(post_processor.process)(weather_data.content, token)
 
         while not processed.ready:
             continue

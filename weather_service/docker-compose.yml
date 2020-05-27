@@ -24,8 +24,6 @@ services:
     image: thertion12/data-post-process
     ports:
       - "9001:9001"
-
-
   modelexec:
     container_name: model-executer
     restart: always
@@ -36,6 +34,4 @@ services:
     ports:
       - "9003:9003"
 
-    depends_on:
-      - dataret
-      - datapost
+

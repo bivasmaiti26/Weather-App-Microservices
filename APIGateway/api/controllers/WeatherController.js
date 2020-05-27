@@ -3,7 +3,7 @@ const utils = require('../utils');
 exports.getWeatherData = function(req,res) {
     var zookeeper = require('node-zookeeper-client');
     var host,port;
-    var client = zookeeper.createClient('zookeeper1:2181');
+    var client = zookeeper.createClient('zookeeper:2181');
     var path = '/WeatherData';
     var url;
     client.getData(
@@ -26,11 +26,12 @@ exports.getWeatherData = function(req,res) {
             if (auth_header && auth_header.split(' ')[0] === 'Bearer') {
                 token =  auth_header.split(' ')[1];
             }
+            
             console.log()
             var long = req.body.latlng.lng;
             var lat = req.body.latlng.lat;
             var city = req.body.value;
-            url = "http://"+host+":"+port.toString()+'/model-executor?lat=' + lat + '&long=' + long;
+            url = "http://"+host+":"+port.toString()+'/model-executor?lat=' + lat + '&long=' + long + '&token='+token;
             WeatherServiceAPICall(url,res,token,city)
         }
     );    
@@ -38,6 +39,7 @@ exports.getWeatherData = function(req,res) {
 
     function WeatherServiceAPICall(url,res,token,cityName)
     {
+        
         return axios({
             method: "post",
             url: url,
@@ -46,7 +48,11 @@ exports.getWeatherData = function(req,res) {
             }
           })
           .then(response => {
-            console.log("Data added to kafka")
+            console.log("Data added to kafka");
+            
+ 
+           
+            //global.user_socker_map.put()
             /*utils.addNewSession({
               requestTime:new Date(),
               requestName: "Weather",

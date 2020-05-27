@@ -6,7 +6,7 @@ import json
 
 class PostProcessService(rpyc.Service):
     def publish_message(self,producer, topic, value):
-       # print("Trying to publish",value, "to topic", topic)
+        print("Trying to publish to topic", topic)
         try:
             producer.send(topic, value=value)
             producer.flush()
@@ -20,7 +20,7 @@ class PostProcessService(rpyc.Service):
     def connect_kafka_producer(self):
         _producer = None
         try:
-            _producer = KafkaProducer(bootstrap_servers=['kafka1:9092'], api_version=(0, 10))
+            _producer = KafkaProducer(bootstrap_servers=['kafka:29092'], api_version=(0, 10))
         except Exception as ex:
             print('Exception while connecting Kafka')
             print(str(ex))
@@ -34,17 +34,20 @@ class PostProcessService(rpyc.Service):
     def on_disconnect(self, conn):
         pass
 
-    def exposed_process(self, data):
+    def exposed_process(self, data, token):
         result = []
         data = json.loads(data)
+        # data[token] = token
         for entry in data["properties"]["periods"]:
             if entry['number'] == 25:
                 break
             result.append(entry)
         if len(result) > 0:
             kafka_producer = self.connect_kafka_producer()
+            result[0]['token'] = token
             serialize_weather_data = json.dumps(result).encode('utf-8')
-            print(serialize_weather_data)
+            # print(serialize_weather_data)
+            # serialize_weather_data[token] = token
             status = self.publish_message(kafka_producer, 'T3', serialize_weather_data)
             if kafka_producer is not None:
                 kafka_producer.close()
